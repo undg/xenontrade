@@ -117,10 +117,12 @@ class PathOfExile {
       // Send chat message if PoE is focused
       if(app.poeFocused && clipboard.readText() === message) {
         clearInterval(interval);
-        robot.setKeyboardDelay(0);
+        robot.setKeyboardDelay(10);
         robot.keyToggle("enter", "down");
         robot.keyToggle("enter", "up");
         robot.keyToggle("control", "down");
+        robot.keyToggle("a", "down");
+        robot.keyToggle("a", "up");
         robot.keyToggle("v", "down");
         robot.keyToggle("v", "up");
         robot.keyToggle("control", "up");

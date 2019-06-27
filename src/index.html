@@ -11,18 +11,54 @@
 <body>
   <div class="container">
     <div class="menu draggable">
-      <div class="row">
+      <div class="flex">
         <div class="left">
-          <div class="button" data-button="settings"><i class="fas fa-cog grey"></i></div>
-          <div class="button" data-button="update"><i class="fas fa-sync-alt grey"></i></div>
-          <div class="button" data-button="close-all"><i class="fas fa-times-circle grey"></i></div>
-          <div class="button" data-button="status" style="display: none"><i class="fas fa-exclamation-circle red"></i></div>
+          <div class="button" data-button="settings">
+            <i  class="fas fa-cog grey"
+                title="Settings"
+              ></i>
+          </div>
+          <div class="button" data-button="update">
+            <i  class="fas fa-sync-alt grey"
+                title="Update prices on poe.ninja"
+                ></i>
+          </div>
+          <div class="button" data-button="close-all">
+            <i  class="fas fa-times-circle grey"
+                title="Close all items."></i>
+          </div>
+          <div class="button" data-button="status" style="display: none">i
+            <i  class="fas fa-exclamation-circle red"
+                title="Item not found"></i>
+          </div>
         </div>
-        <div class="middle"></div>
+        <div class="middle">
+          <div class="button" data-button="buy">
+            <i  class="fas fa-buy grey"
+                title="Paste clipboard content to game chat." >🛒</i>
+          </div>
+          <div class="button" data-button="hideout">
+            <i  class="fas fa-hideout grey"
+                title="Go back to your hideout." >🏕</i>
+          </div>
+          <div class="button" data-button="logout">
+            <i  class="fas fa-logout red"
+                title="Emergency! Go back to character screen." >🛑</i>
+          </div>
+        </div>
         <div class="right">
-          <div class="button" data-button="lock"><i class="fas fa-unlock grey"></i></div>
-          <div class="button" data-button="minimize"><i class="fas fa-window-minimize grey"></i></div>
-          <div class="button" data-button="close"><i class="fas fa-window-close grey"></i></div>
+          <div class="button" data-button="lock">
+            <i  class="fas fa-unlock grey"
+                title="Lock position"></i>
+          </div>
+          <div class="button" data-button="minimize">
+            <i  class="fas fa-window-minimize grey"
+                title="Mineralise"></i>
+          </div>
+          <div class="button" data-button="close">
+            <i  class="fas fa-window-close grey"
+                title="Exit"></i>
+          </div>
         </div>
       </div>
     </div>

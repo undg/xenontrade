@@ -1,0 +1,29 @@
+
+- [ ] ITEM CHECKING
+  - [ ] check price on https://poeapp.com/#/item-import/${itemContents}
+    - [ ] itemContents must be url encoded
+
+- [ ] TRADE HELPER
+  - [ ] (selling): copy to clipboard item name for later paste it in stash filter.
+  - [ ] (buying): visit hideout 
+  - [ ] fast ctrl+click stash slots
+  - [ ] fix. Players with Chinese names are not recognised by Xenontrade (or by other reason.. debug it)
+  - [ ] leave party with 'thank you' message and go back to hideout.
+  - [X] (other): paste to chat content from clipboard. Useful for buying from trade websites.
+
+- [ ] OTHERS
+  - [ ] /kick ${self}
+  - [ ] ${self} is already in config, add options to one click update self character name. Can be done by writing dummy message on chat.
+  - [X] /exit emengency go back do character select screen.
+  - [X] /hideout go back to hideout
+  - [X] minimum chat delay on my pc need to be 9ms, this is common limitation.
+  - [X] Info tooltips for icons in title bar.
+
+- [ ] DREAMS
+  - [ ] Find solution for chat macros while chat is opened.
+  - [ ] Electron transparency. It is possible and easy, but buggy ;/
+
+
+
+
+vim:ft=help:ts=2:sw=2

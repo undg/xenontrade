@@ -8,6 +8,7 @@ const PathOfExile = require("../poe.js");
 const Helpers = require("../helpers.js");
 const Pricecheck = require("../pricecheck.js");
 const SettingsGUI = require("./settings.js");
+const Whisper = require("../whisper.js")
 
 global.entries = {};
 
@@ -86,29 +87,17 @@ class GUI {
   * Initializes the header buttons
   */
   static _initializeButtons() {
-    $(".menu").find("[data-button='minimize']").click(function() {
-      GUI.hide();
-    });
+    $(".menu").find("[data-button='minimize']").click(  () => GUI.hide() );
+    $(".menu").find("[data-button='close']").click(     () => GUI.close() );
+    $(".menu").find("[data-button='update']").click(    () => Pricecheck.updateNinja() );
 
-    $(".menu").find("[data-button='close']").click(function() {
-      GUI.close();
-    });
+    $(".menu").find("[data-button='buy']").click(       () => PathOfExile.chat(electron.clipboard.readText()) );
+    $(".menu").find("[data-button='hideout']").click(   () => PathOfExile.chat('/hideout') );
+    $(".menu").find("[data-button='logout']").click(    () => PathOfExile.chat('/exit') );
 
-    $(".menu").find("[data-button='update']").click(function() {
-      Pricecheck.updateNinja();
-    });
-
-    $(".menu").find("[data-button='settings']").click(function() {
-      GUI.toggleSettingsWindow();
-    });
-
-    $(".menu").find("[data-button='lock']").click(function() {
-      GUI.toggleLock();
-    });
-
-    $(".menu").find("[data-button='close-all']").click(function() {
-      GUI.closeAllEntries();
-    });
+    $(".menu").find("[data-button='settings']").click(  () => GUI.toggleSettingsWindow() );
+    $(".menu").find("[data-button='lock']").click(      () => GUI.toggleLock() );
+    $(".menu").find("[data-button='close-all']").click( () => GUI.closeAllEntries() );
   }
 
   /**
