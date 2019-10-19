@@ -7,12 +7,12 @@
   - [ ] (selling): copy to clipboard item name for later paste it in stash filter.
   - [ ] (buying): visit hideout 
   - [ ] fast ctrl+click stash slots
-  - [ ] fix. Players with Chinese names are not recognised by Xenontrade (or by other reason.. debug it)
+  - [X] fix. Players with Chinese names are not recognised by Xenontrade (or by other reason.. debug it)
   - [ ] leave party with 'thank you' message and go back to hideout.
   - [X] (other): paste to chat content from clipboard. Useful for buying from trade websites.
 
 - [ ] OTHERS
-  - [ ] /kick ${self}
+  - [X] /kick ${self}
   - [ ] ${self} is already in config, add options to one click update self character name. Can be done by writing dummy message on chat.
   - [X] /exit emengency go back do character select screen.
   - [X] /hideout go back to hideout

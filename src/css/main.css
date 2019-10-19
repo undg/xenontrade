@@ -52,6 +52,10 @@ i {
   padding-left: 3px;
 }
 
+.dropdown.closed {
+  display: none;
+}
+
 
 .entries {
   overflow: auto;

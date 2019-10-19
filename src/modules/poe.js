@@ -134,9 +134,7 @@ class PathOfExile {
         }
 
         // Restore clipboard content
-        var timeout = setTimeout(function() {
-          clipboard.writeText(previousClipboard);
-        }, 100);
+        let timeout = setTimeout(() => clipboard.writeText(previousClipboard) , 100);
       }
 
       // Clear interval if focusing Path of Exile is taking too long
@@ -148,6 +146,51 @@ class PathOfExile {
       intervalCount++;
     }, 0);
   }
+
+  /**
+  * Focuses Path of Exile and search item in inventory
+  *
+  * @param {string} item to search in inventory
+  * @param {boolean} [send=true] Whether the search should be sent automatically
+  */
+  static inventorySearch(message, send = true) {
+    PathOfExile.focus();
+
+    var previousClipboard = clipboard.readText();
+    clipboard.writeText(message);
+
+    var intervalCount = 0;
+    var interval = setInterval( () => {
+      // Send chat message if PoE is focused
+      if(app.poeFocused && clipboard.readText() === message) {
+        clearInterval(interval);
+        robot.setKeyboardDelay(50);
+        robot.keyToggle("control", "down");
+        robot.keyToggle("f", "down");
+        robot.keyToggle("f", "up");
+        robot.keyToggle("v", "down");
+        robot.keyToggle("v", "up");
+        robot.keyToggle("control", "up");
+
+        if(send) {
+          robot.keyToggle("enter", "down");
+          robot.keyToggle("enter", "up");
+        }
+
+        // Restore clipboard content
+        let timeout = setTimeout(() => clipboard.writeText(previousClipboard) , 100);
+      }
+
+      // Clear interval if focusing Path of Exile is taking too long
+      if(intervalCount >= 500) {
+        clearInterval(interval);
+        clipboard.writeText(previousClipboard);
+      }
+
+      intervalCount++;
+    }, 0);
+  }
+
 
   /**
   * Returns `true` if the league rules have a solo rules
