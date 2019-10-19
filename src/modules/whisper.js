@@ -2,15 +2,15 @@ const CurrencyAbbreviations = require("../resource/currencyAbbreviations");
 
 class Whisper {
   /**
-  * Creates a new Whisper object
-  * // TODO: JSDocs
-  *
-  * @constructor
-  */
-  constructor(message) {
-    this.message = message;
-    this.tradeInfo = this._getItemTradeInfo() || this._getBulkTradeInfo();
-  }
+   * Creates a new Whisper object
+   * // TODO: JSDocs
+   *
+   * @constructor
+   */
+    constructor(message) {
+        this.message = message;
+        this.tradeInfo = this._getItemTradeInfo() || this._getBulkTradeInfo();
+    }
 
   _getItemTradeInfo() {
     var message = this.message.message;
@@ -23,13 +23,13 @@ class Whisper {
     if(stashInfo != null) {
       // Remove stash information from message
       message = message.replace(stashInfo.message, "");
-      delete(stashInfo.message);
+      // delete(stashInfo.message);
     }
 
     tradeInfo.stash = stashInfo;
 
     // Trade
-    var pattern = /(?:Hi, I would like to buy your|wtb) (.+) listed for ([0-9.]+) (.+) in (.+)/;
+    var pattern = /Hi, I would like to buy your (.+) listed for ([0-9.]+) (.+) in (.+)/;
     var match = message.match(pattern);
 
     if(match) {

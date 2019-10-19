@@ -195,3 +195,4 @@ class WhisperEntry extends Entry {
 }
 
 module.exports = WhisperEntry;
+// vim: set ts=2 sw=2

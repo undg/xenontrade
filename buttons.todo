@@ -18,6 +18,7 @@
   - [X] /hideout go back to hideout
   - [X] minimum chat delay on my pc need to be 9ms, this is common limitation.
   - [X] Info tooltips for icons in title bar.
+  - [X] fix auto resize window
 
 - [ ] DREAMS
   - [ ] Find solution for chat macros while chat is opened.
