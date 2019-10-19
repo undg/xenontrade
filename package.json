@@ -5,8 +5,10 @@
   "main": "src/main.js",
   "scripts": {
     "postinstall": "electron-builder install-app-deps",
-    "start": "npm install && electron ./",
+    "init": "npm install && electron ./",
+    "start": "electron ./",
     "electron": "electron ./",
+    "build": "build",
     "dist-linux": "build",
     "dist-win": "build --win",
     "publish-linux": "build --linux --publish always",
