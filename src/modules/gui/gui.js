@@ -98,23 +98,29 @@ class GUI {
     $(".menu").find("[data-button='settings']").click(  () => GUI.toggleSettingsWindow() );
     $(".menu").find("[data-button='lock']").click(      () => GUI.toggleLock() );
     $(".menu").find("[data-button='close-all']").click( () => GUI.closeAllEntries() );
-    $(".menu").find("[data-button='submenu']").click(   () => GUI.toggleElement("#submenu") )
+    $(".menu").find("[data-button='submenu']").click(   e => GUI.toggleSubmenu(e) )
 
     // custom commands in submenu
-    $(".menu").find("[data-button='cmd1']").click(   () => PathOfExile.inventorySearch('"cannot regenerate life"') )
-    $(".menu").find("[data-button='cmd2']").click(   () => PathOfExile.inventorySearch('"cursed with temporal chains"') )
-    $(".menu").find("[data-button='cmd3']").click(   () => PathOfExile.inventorySearch('corrupted') )
-    $(".menu").find("[data-button='cmd4']").click(   () => PathOfExile.inventorySearch('"quality: +20%"') )
-    $(".menu").find("[data-button='cmd5']").click(   () => PathOfExile.inventorySearch('"monsters reflect" "% of physical damage"') )
-    $(".menu").find("[data-button='cmd6']").click(   () => PathOfExile.inventorySearch('"monsters reflect" "% of elemental damage"') )
+    $(".menu").find("[data-button='cmd1']").click(   () => PathOfExile.stashSearch('"cannot regenerate life"') )
+    $(".menu").find("[data-button='cmd2']").click(   () => PathOfExile.stashSearch('"cursed with temporal chains"') )
+    $(".menu").find("[data-button='cmd3']").click(   () => PathOfExile.stashSearch('corrupted') )
+    $(".menu").find("[data-button='cmd4']").click(   () => PathOfExile.stashSearch('"quality: +20%"') )
+    $(".menu").find("[data-button='cmd5']").click(   () => PathOfExile.stashSearch('"monsters reflect" "% of physical damage"') )
+    $(".menu").find("[data-button='cmd6']").click(   () => PathOfExile.stashSearch('"monsters reflect" "% of elemental damage"') )
   }
 
   /**
   * Toggles dropdown container
   */
-  static toggleElement(selector) {
-    const element = document.querySelector(selector)
-    element.classList.toggle('closed')
+  static toggleSubmenu(e) {
+    const dropdown =  document.querySelector("#submenu")
+    const button =  e.target
+
+    dropdown.classList.toggle('closed')
+    button.classList.toggle('fa-arrow-up')
+    button.classList.toggle('fa-arrow-down')
+
+    GUI.updateWindowHeight();
   }
 
   /**
@@ -123,7 +129,7 @@ class GUI {
   static _initializeTransparency() {
     if(os.platform() !== "win32") {
       // If OS is not Windows, add background color to body to prevent white flash on new entry/close entry
-      // $("body").css("background-color", "#202630");
+      $("body").css("background-color", "#202630");
     }
   }
 
