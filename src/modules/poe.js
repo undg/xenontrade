@@ -167,8 +167,8 @@ class PathOfExile {
   * @param {string} item to search in inventory
   * @param {boolean} [send=true] Whether the search should be sent automatically
   */
-  static stashSearch(message, send = true) {
-    PathOfExile.sendMakro(message, () => {
+  static stashSearch(itemName, send = true) {
+    PathOfExile.sendMakro(itemName, () => {
         robot.keyToggle("control", "down");
         robot.keyToggle("f", "down");
         robot.keyToggle("f", "up");
