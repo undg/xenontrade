@@ -107,6 +107,9 @@ class GUI {
     $(".menu").find("[data-button='cmd4']").click( () => PathOfExile.stashSearch('"quality: +20%"') )
     $(".menu").find("[data-button='cmd5']").click( () => PathOfExile.stashSearch('"monsters reflect" "% of physical damage"') )
     $(".menu").find("[data-button='cmd6']").click( () => PathOfExile.stashSearch('"monsters reflect" "% of elemental damage"') )
+    $(".menu").find("[data-button='cmd7']").click( () => PathOfExile.stashSearch('"normal"') )
+    $(".menu").find("[data-button='cmd8']").click( () => PathOfExile.stashSearch('"unidentified"') )
+    $(".menu").find("[data-button='cmd9']").click( () => PathOfExile.stashSearch('"uniq"') )
   }
 
   /**
