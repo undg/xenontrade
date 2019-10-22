@@ -1,38 +1,49 @@
 
-- [ ] ITEM CHECKING
-  - [ ] check price on https://poeapp.com/#/item-import/${itemContents}
-    - [ ] itemContents must be url encoded
+## ITEM CHECKING
+- [ ] check price on https://poeapp.com/#/item-import/${itemContents}
+  - [ ] itemContents must be url encoded
 
-- [ ] TRADE HELPER
-  - [ ] (selling): copy to clipboard item name for later paste it in stash filter.
-      - [ ] with new stashSearch() better option is creating additional button.
-      - [ ] fix items with 'alch' in string and few others (separate lib). One time regexp is fck up, another time is missing.
-  - [ ] (buying): visit hideout 
-  - [ ] fast ctrl+click stash slots
-  - [X] fix. Players with Chinese names are not recognised by Xenontrade (or by other reason.. debug it)
-  - [ ] leave party with 'thank you' message and go back to hideout.
-  - [X] (other): paste to chat content from clipboard. Useful for buying from trade websites.
 
-- [ ] OTHERS
-  - [X] /kick ${buyer} in own party
-  - [ ] /kick ${self}. $self is already in config, add options to one click update self character name. Can be done by writing dummy message on chat.
-  - [X] /exit emergency go back do character select screen.
-  - [X] /hideout go back to hideout
-  - [ ] /dnd mute all messages
-  - [X] minimum chat delay on my pc need to be 50ms, this is common limitation for macros.
-  - [X] Info tooltips for icons in title bar.
-  - [X] fix auto resize window
-  - [X] stashSearch() and dropdown with hardcoded searches.
-  - [X] stashSearch() is similar to chat()
-      - [X] abstract
-  - [ ] ./electron arg1 (dev argument),
-    - [ ] use argv
-    - [ ] remove hardcoded dev variable,
-    - [ ] dev script in package.json
-  - [ ] .menu and .submenu: refactor display table to grid or flexbox, remove
-    inner wrappers, prepare for dynamic buttons from custom options.
+## TRADE HELPER
+- [ ] (selling): copy to clipboard item name for later paste it in stash filter.
+    - [ ] with new stashSearch() better option is creating additional button.
+    - [ ] fix items with 'alch' in string and few others (separate lib). One time regexp is fck up, another time is missing.
+- [X] (buying): visit hideout 
+- [ ] fast ctrl+click stash slots
+- [X] fix. Players with Chinese names are not recognised by Xenontrade (or by other reason.. debug it)
+- [ ] leave party with 'thank you' message and go back to hideout.
+- [X] (other): paste to chat content from clipboard. Useful for buying from trade websites.
+ [ ] PARTY
+  - [ ] Change color font if user is:
+      - [ ] blue:  in party
+      - [ ] green: in same instance
 
-- [ ] DREAMS
+
+## OTHERS
+- [ ] BUTONS 
+    - [ ] /dnd mute all messages
+    - [ ] /kick ${self}. $self is already in config, add options to one click update self character name. Can be done by writing dummy message on chat.
+    - [X] /kick ${buyer} in own party
+    - [X] /exit emergency go back do character select screen.
+    - [X] /hideout go back to hideout
+- [ ] .menu and .submenu: refactor display table to grid or flexbox, remove
+  inner wrappers, prepare for dynamic buttons from custom options.
+- [X] minimum chat delay on my pc need to be 50ms, this is common limitation for macros.
+- [X] Info tooltips for icons in title bar.
+- [X] fix auto resize window
+- [X] stashSearch() and dropdown with hardcoded searches.
+- [X] stashSearch() is similar to chat()
+    - [X] abstract
+
+
+## DEV ENV
+- [ ] ./electron arg1 (dev argument),
+  - [ ] use argv
+  - [ ] remove hardcoded dev variable,
+  - [ ] dev script in package.json
+
+
+## DREAMS
   - [ ] Find solution for chat macros while chat is opened.
   - [ ] Electron transparency. It is possible and easy, but buggy ;/
 
