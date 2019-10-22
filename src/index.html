@@ -11,18 +11,117 @@
 <body>
   <div class="container">
     <div class="menu draggable">
-      <div class="row">
+      <div class="flex">
         <div class="left">
-          <div class="button" data-button="settings"><i class="fas fa-cog grey"></i></div>
-          <div class="button" data-button="update"><i class="fas fa-sync-alt grey"></i></div>
-          <div class="button" data-button="close-all"><i class="fas fa-times-circle grey"></i></div>
-          <div class="button" data-button="status" style="display: none"><i class="fas fa-exclamation-circle red"></i></div>
+          <div class="button" data-button="settings">
+            <i  class="fas fa-cog grey"
+                title="Settings"
+              ></i>
+          </div>
+          <div class="button" data-button="update">
+            <i  class="fas fa-sync-alt grey"
+                title="Update prices on poe.ninja"
+                ></i>
+          </div>
+          <div class="button" data-button="close-all">
+            <i  class="fas fa-times-circle grey"
+                title="Close all items."></i>
+          </div>
+          <div class="button" data-button="status" style="display: none">i
+            <i  class="fas fa-exclamation-circle red"
+                title="Item not found"></i>
+          </div>
         </div>
-        <div class="middle"></div>
+        <div class="middle">
+          <div class="button" data-button="buy">
+            <i  class="fas fa-buy grey"
+                title="Paste clipboard content to game chat." >🛒</i>
+          </div>
+          <div class="button" data-button="hideout">
+            <i  class="fas fa-hideout grey"
+                title="Go back to your hideout." >🏕</i>
+          </div>
+          <div class="button" data-button="logout">
+            <i  class="fas fa-logout red"
+                title="Emergency! Go back to character screen." >🛑</i>
+          </div>
+        </div>
         <div class="right">
-          <div class="button" data-button="lock"><i class="fas fa-unlock grey"></i></div>
-          <div class="button" data-button="minimize"><i class="fas fa-window-minimize grey"></i></div>
-          <div class="button" data-button="close"><i class="fas fa-window-close grey"></i></div>
+          <div class="button" data-button="submenu">
+            <i  class="fas fa-arrow-down grey"
+                title="Toggle submenu"></i>
+          </div>
+          <div class="button" data-button="lock">
+            <i  class="fas fa-unlock grey"
+                title="Lock position"></i>
+          </div>
+          <div class="button" data-button="minimize">
+            <i  class="fas fa-window-minimize grey"
+                title="Mineralise"></i>
+          </div>
+          <div class="button" data-button="close">
+            <i  class="fas fa-window-close grey"
+                title="Exit"></i>
+          </div>
+        </div>
+      </div>
+    </div>
+
+
+    <div class="menu dropdown closed small" id="submenu">
+      <div class="flex">
+        <div class="left">
+        </div>
+        <div class="middle">
+          <hr>
+          <div class="button" data-button="cmd1">
+            <i  class="fas grey"
+                title="custom CMD 1"
+              >Regen</i>
+          </div>
+          <div class="button" data-button="cmd2">
+            <i  class="fas grey"
+                title="custom CMD 2"
+              >Chain</i>
+          </div>
+          <div class="button" data-button="cmd5">
+            <i  class="fas grey"
+                title="custom CMD 5"
+              >Phy</i>
+          </div>
+          <div class="button" data-button="cmd6">
+            <i  class="fas grey"
+                title="custom CMD 6"
+              >Ele</i>
+          </div>
+          <div class="button" data-button="cmd7">
+            <i  class="fas grey"
+                title="custom CMD 7"
+              >Norm</i>
+          </div>
+          <div class="button" data-button="cmd4">
+            <i  class="fas grey"
+                title="custom CMD 4"
+              >20%</i>
+          </div>
+          <div class="button" data-button="cmd3">
+            <i  class="fas grey"
+                title="custom CMD 3"
+              >Cor</i>
+          </div>
+          <div class="button" data-button="cmd8">
+            <i  class="fas grey"
+                title="custom CMD 8"
+              >Unidentified</i>
+          </div>
+          <div class="button" data-button="cmd9">
+            <i  class="fas grey"
+                title="custom CMD 9"
+              >Uniq</i>
+          </div>
+          <hr>
+        </div>
+        <div class="right">
         </div>
       </div>
     </div>

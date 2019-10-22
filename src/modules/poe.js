@@ -100,30 +100,27 @@ class PathOfExile {
     });
   }
 
+
   /**
-  * Focuses Path of Exile and sends a message in chat
+  * Focuses Path of Exile and send keys
   *
-  * @param {string} message Chat message
-  * @param {boolean} [send=true] Whether the message should be sent automatically
+  * @param {string} text to send
+  * @param {function} callback robot.keyToggle() key sequences
+  * @param {boolean} [send=true] Whether the key sequence should be sent automatically
   */
-  static chat(message, send = true) {
+  static sendMakro(message, macroCallback, send = true) {
     PathOfExile.focus();
 
     var previousClipboard = clipboard.readText();
     clipboard.writeText(message);
 
     var intervalCount = 0;
-    var interval = setInterval(function() {
+    var interval = setInterval( () => {
       // Send chat message if PoE is focused
       if(app.poeFocused && clipboard.readText() === message) {
         clearInterval(interval);
-        robot.setKeyboardDelay(0);
-        robot.keyToggle("enter", "down");
-        robot.keyToggle("enter", "up");
-        robot.keyToggle("control", "down");
-        robot.keyToggle("v", "down");
-        robot.keyToggle("v", "up");
-        robot.keyToggle("control", "up");
+        robot.setKeyboardDelay(50);
+        macroCallback()
 
         if(send) {
           robot.keyToggle("enter", "down");
@@ -131,9 +128,7 @@ class PathOfExile {
         }
 
         // Restore clipboard content
-        var timeout = setTimeout(function() {
-          clipboard.writeText(previousClipboard);
-        }, 100);
+        let timeout = setTimeout(() => clipboard.writeText(previousClipboard) , 100);
       }
 
       // Clear interval if focusing Path of Exile is taking too long
@@ -145,6 +140,44 @@ class PathOfExile {
       intervalCount++;
     }, 0);
   }
+
+  /**
+  * Focuses Path of Exile and sends a message in chat
+  *
+  * @param {string} message Chat message
+  * @param {boolean} [send=true] Whether the message should be sent automatically
+  */
+  static chat(message, send = true) {
+    PathOfExile.sendMakro(message, () => {
+        robot.keyToggle("enter", "up");
+        robot.keyToggle("enter", "down");
+        robot.keyToggle("enter", "up");
+        robot.keyToggle("control", "down");
+        robot.keyToggle("a", "down");
+        robot.keyToggle("a", "up");
+        robot.keyToggle("v", "down");
+        robot.keyToggle("v", "up");
+        robot.keyToggle("control", "up");
+    }, send)
+  }
+
+  /**
+  * Focuses Path of Exile and input string in search box 
+  *
+  * @param {string} item to search in inventory
+  * @param {boolean} [send=true] Whether the search should be sent automatically
+  */
+  static stashSearch(itemName, send = true) {
+    PathOfExile.sendMakro(itemName, () => {
+        robot.keyToggle("control", "down");
+        robot.keyToggle("f", "down");
+        robot.keyToggle("f", "up");
+        robot.keyToggle("v", "down");
+        robot.keyToggle("v", "up");
+        robot.keyToggle("control", "up");
+    }, send)
+  }
+
 
   /**
   * Returns `true` if the league rules have a solo rules

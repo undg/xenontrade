@@ -8,6 +8,7 @@ const PathOfExile = require("../poe.js");
 const Helpers = require("../helpers.js");
 const Pricecheck = require("../pricecheck.js");
 const SettingsGUI = require("./settings.js");
+const Whisper = require("../whisper.js")
 
 global.entries = {};
 
@@ -86,29 +87,43 @@ class GUI {
   * Initializes the header buttons
   */
   static _initializeButtons() {
-    $(".menu").find("[data-button='minimize']").click(function() {
-      GUI.hide();
-    });
+    $(".menu").find("[data-button='minimize']").click(  () => GUI.hide() );
+    $(".menu").find("[data-button='close']").click(     () => GUI.close() );
+    $(".menu").find("[data-button='update']").click(    () => Pricecheck.updateNinja() );
 
-    $(".menu").find("[data-button='close']").click(function() {
-      GUI.close();
-    });
+    $(".menu").find("[data-button='buy']").click(       () => PathOfExile.chat(electron.clipboard.readText()) );
+    $(".menu").find("[data-button='hideout']").click(   () => PathOfExile.chat('/hideout') );
+    $(".menu").find("[data-button='logout']").click(    () => PathOfExile.chat('/exit') );
 
-    $(".menu").find("[data-button='update']").click(function() {
-      Pricecheck.updateNinja();
-    });
+    $(".menu").find("[data-button='settings']").click(  () => GUI.toggleSettingsWindow() );
+    $(".menu").find("[data-button='lock']").click(      () => GUI.toggleLock() );
+    $(".menu").find("[data-button='close-all']").click( () => GUI.closeAllEntries() );
+    $(".menu").find("[data-button='submenu']").click(   e => GUI.toggleSubmenu(e) )
 
-    $(".menu").find("[data-button='settings']").click(function() {
-      GUI.toggleSettingsWindow();
-    });
+    // custom commands in submenu
+    $(".menu").find("[data-button='cmd1']").click( () => PathOfExile.stashSearch('"cannot regenerate life"') )
+    $(".menu").find("[data-button='cmd2']").click( () => PathOfExile.stashSearch('"cursed with temporal chains"') )
+    $(".menu").find("[data-button='cmd3']").click( () => PathOfExile.stashSearch('corrupted') )
+    $(".menu").find("[data-button='cmd4']").click( () => PathOfExile.stashSearch('"quality: +20%"') )
+    $(".menu").find("[data-button='cmd5']").click( () => PathOfExile.stashSearch('"monsters reflect" "% of physical damage"') )
+    $(".menu").find("[data-button='cmd6']").click( () => PathOfExile.stashSearch('"monsters reflect" "% of elemental damage"') )
+    $(".menu").find("[data-button='cmd7']").click( () => PathOfExile.stashSearch('"normal"') )
+    $(".menu").find("[data-button='cmd8']").click( () => PathOfExile.stashSearch('"unidentified"') )
+    $(".menu").find("[data-button='cmd9']").click( () => PathOfExile.stashSearch('"uniq"') )
+  }
 
-    $(".menu").find("[data-button='lock']").click(function() {
-      GUI.toggleLock();
-    });
+  /**
+  * Toggles dropdown container
+  */
+  static toggleSubmenu(e) {
+    const dropdown =  document.querySelector("#submenu")
+    const button =  e.target
 
-    $(".menu").find("[data-button='close-all']").click(function() {
-      GUI.closeAllEntries();
-    });
+    dropdown.classList.toggle('closed')
+    button.classList.toggle('fa-arrow-up')
+    button.classList.toggle('fa-arrow-down')
+
+    GUI.updateWindowHeight();
   }
 
   /**

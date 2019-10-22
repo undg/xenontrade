@@ -89,21 +89,25 @@ class WhisperEntry extends Entry {
     } else {
       this._enableTradeButton("kick");
       this._enableTradeButton("invite");
+      this._enableTradeButton("stashSearch");
     }
 
     this._enableTradeButton("trade");
   }
 
-  _enableTradeButton(button) {
-    var self = this;
-    var button = this.getJQueryObject().find("[data-button='" + button + "']");
-    var command = button.attr("data-command");
+  _enableTradeButton(buttonAttr) {
+    const button = this.getJQueryObject().find("[data-button='" + buttonAttr + "']");
+    const command = button.attr("data-command");
+    const isSearch = (buttonAttr === "stashSearch")
+
     button.show();
     super.updateMiddleWidth();
 
-    button.click(function() {
-      PathOfExile.chat(command);
-    });
+    const action = isSearch
+      ? PathOfExile.stashSearch
+      : PathOfExile.chat
+
+    button.click(() => action(command));
   }
 
   _addChatButtons() {
@@ -195,3 +199,4 @@ class WhisperEntry extends Entry {
 }
 
 module.exports = WhisperEntry;
+// vim: set ts=2 sw=2

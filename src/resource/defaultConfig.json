@@ -21,7 +21,7 @@
           "direction": "From",
           "label": "Sold",
           "message": "Sorry, %trade% is no longer available.",
-          "close": true
+          "close": false
         },
         "3": {
           "direction": "From",

@@ -2,15 +2,15 @@ const CurrencyAbbreviations = require("../resource/currencyAbbreviations");
 
 class Whisper {
   /**
-  * Creates a new Whisper object
-  * // TODO: JSDocs
-  *
-  * @constructor
-  */
-  constructor(message) {
-    this.message = message;
-    this.tradeInfo = this._getItemTradeInfo() || this._getBulkTradeInfo();
-  }
+   * Creates a new Whisper object
+   * // TODO: JSDocs
+   *
+   * @constructor
+   */
+    constructor(message) {
+        this.message = message;
+        this.tradeInfo = this._getItemTradeInfo() || this._getBulkTradeInfo();
+    }
 
   _getItemTradeInfo() {
     var message = this.message.message;
@@ -23,22 +23,22 @@ class Whisper {
     if(stashInfo != null) {
       // Remove stash information from message
       message = message.replace(stashInfo.message, "");
-      delete(stashInfo.message);
+      // delete(stashInfo.message);
     }
 
     tradeInfo.stash = stashInfo;
 
     // Trade
-    var pattern = /(?:Hi, I would like to buy your|wtb) (.+) listed for ([0-9.]+) (.+) in (.+)/;
+    var pattern = /(wtb|Hi, I would like to buy your) (.+) listed for ([0-9.]+) (.+) in (.+)/;
     var match = message.match(pattern);
 
     if(match) {
       tradeInfo.receive.amount = "";
-      tradeInfo.receive.name = match[1];
-      tradeInfo.pay.amount = parseFloat(match[2]);
-      tradeInfo.pay.name = this.formatCurrencyName(match[3]);
-      tradeInfo.league = match[4];
-      tradeInfo.trade = match[1] + " for " + match[2] + " " + match[3];
+      tradeInfo.receive.name = match[2];
+      tradeInfo.pay.amount = parseFloat(match[3]);
+      tradeInfo.pay.name = this.formatCurrencyName(match[4]);
+      tradeInfo.league = match[5];
+      tradeInfo.trade = match[2] + " for " + match[3] + " " + match[4];
 
       return tradeInfo;
     }
