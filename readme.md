@@ -1,3 +1,5 @@
+This is clone of [klayveR/xenontrade](https://github.com/klayveR/xenontrade). It is still mainly developed on and for linux. 
+
 
 # ![](https://i.imgur.com/wVnDg8C.png) XenonTrade
 **XenonTrade is a Path of Exile trading overlay**, initially developed specifically for Linux users. While Path of Exiles performance on Linux has drastically increased in the past few months, there are barely any trading companions available for Linux. And thus, this app was created.
