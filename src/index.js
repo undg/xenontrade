@@ -1,29 +1,32 @@
 "use strict";
 
 const electron = require("electron");
-const remote = require("electron").remote;
 let { ipcRenderer } = electron;
 
-const windowManager = remote.require('electron-window-manager');
+const windowManager = electron.remote.require('electron-window-manager');
 const ioHook = require("iohook");
 const clipboardy = require("clipboardy");
 const os = require("os");
+const fs = require("promise-fs");
 const log = require('electron-log');
 
 const Config = require("electron-store");
 const Helpers = require("./modules/helpers.js");
+const PathOfExileLog = require("poe-log-monitor");
 const NinjaAPI = require("poe-ninja-api-manager");
 const Templates = require("./modules/templates.js");
+const Whisper = require("./modules/whisper.js");
 const Pricecheck = require("./modules/pricecheck.js");
 const AutoMinimize = require("./modules/auto-minimize.js");
 const TextEntry = require("./modules/entries/text-entry.js");
+const WhisperEntry = require("./modules/entries/whisper-entry.js");
 
 const GUI = require("./modules/gui/gui.js");
 
+global.poeLog = null;
 global.config = Helpers.createConfig();
 global.templates = new Templates();
 global.ninjaAPI = new NinjaAPI();
-global.entries = {};
 
 class XenonTrade {
   /**
@@ -50,6 +53,7 @@ class XenonTrade {
       this.initializeAutoMinimize();
       this.initializeHotkeys();
       this.initializeIpcListeners();
+      this.initializePoeLogMonitor();
 
       // Check dependencies and update poe.ninja
       this.checkDependencies();
@@ -57,10 +61,8 @@ class XenonTrade {
       return;
     })
     .catch((error) => {
-      var errorMsg = "Error initializing app\n" + JSON.stringify(error, null, 4);
-
-      log.error(errorMsg);
-      alert(errorMsg);
+      log.error(error);
+      alert("Error initializing app. Please check the log file for more information.");
       windowManager.closeAll();
       return;
     });
@@ -96,6 +98,40 @@ class XenonTrade {
     .then(() => {
       self.autoMinimize.start();
     });
+  }
+
+  /**
+  * Initializes listeners for Path of Exile log file
+  */
+  initializePoeLogMonitor(logfile = config.get("tradehelper.logfile")) {
+    if (config.get("tradehelper.enabled") && fs.existsSync(logfile) && logfile.includes("Client.txt")) {
+      // Remove old listeners
+      if(poeLog != null) {
+        poeLog.pause();
+        poeLog.removeAllListeners();
+      }
+
+      poeLog = new PathOfExileLog({ logfile: logfile });
+
+      poeLog.on("whisper", (message) => {
+        var whisper = new Whisper(message);
+
+        if(whisper.isTradeMessage()) {
+          new WhisperEntry(whisper).add();
+        }
+      });
+
+      poeLog.on("areaJoin", player => {
+        GUI.setPlayerJoinedStatus(player.player.name, true);
+      });
+
+      poeLog.on("areaLeave", player => {
+        GUI.setPlayerJoinedStatus(player.player.name, false);
+      });
+    } else {
+      var message = "The path to your <strong>Client.txt</strong> log file is invalid. The trade helper needs the correct path to properly receive whisper messages.";
+      new TextEntry("Invalid log file path", message, {icon: "fa-exclamation-triangle yellow"}).add();
+    }
   }
 
   /**

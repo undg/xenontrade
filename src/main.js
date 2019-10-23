@@ -9,7 +9,7 @@ const os = require("os");
 
 let win, tray;
 let config = Helpers.createConfig();
-let debug = false;
+let debug = 0;
 
 // Disable auto download of updates
 autoUpdater.autoDownload = false;
@@ -36,7 +36,7 @@ function createWindow() {
     'show': false,
     'transparent': true,
     'maximizable': false,
-    'resizable': false,
+    'resizable': true,
     'fullscreenable': false,
     'alwaysOnTop': true
   });
@@ -97,6 +97,9 @@ if(shouldQuit) {
   app.quit();
   return;
 }
+if (debug) {
+    require('electron-reload')(__dirname);
+}
 
 // This method will be called when Electron has finished
 // initialization and is ready to create browser windows.
@@ -108,6 +111,8 @@ app.on("ready", () => {
   // Check for updates if not in dev mode
   if (!isDev) {
     autoUpdater.checkForUpdates();
+  }
+  if (isDev) {
   }
 });
 
@@ -138,16 +143,15 @@ ipcMain.on("install-update", (event, arg) => {
 
 // When receiving resize, resize the main window
 ipcMain.on("resize", function (ev, width, height) {
-  if(!debug) {
-    // Save previous window position
-    let windowPosition = win.getPosition();
+  if(debug) { return }
+  // Save previous window position
+  let windowPosition = win.getPosition();
 
-    // Set new window size
-    win.setSize(Math.round(width), Math.round(height));
+  // Set new window size
+  win.setSize(Math.round(width), Math.round(height));
 
-    // Apply previous position again to fix up- and downwards resize on some Linux distros
-    if(os.platform() === "linux") {
-      win.setPosition(windowPosition[0], windowPosition[1]);
-    }
+  // Apply previous position again to fix up- and downwards resize on some Linux distros
+  if(os.platform() === "linux") {
+    win.setPosition(windowPosition[0], windowPosition[1]);
   }
 });

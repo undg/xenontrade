@@ -66,3 +66,12 @@ typings/
 dist
 build/old
 gh_token.yml
+
+# dev environment
+*.swo
+*.swp
+*.swa
+Session.vim
+.tern-port
+.idea
+.DS_Store

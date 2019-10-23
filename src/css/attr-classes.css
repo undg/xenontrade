@@ -1,4 +1,4 @@
-[data-link], [data-button], [data-entry-link] {
+[data-link], [data-button], [data-entry-link], [data-toggle] {
   cursor: pointer !important;
 }
 
@@ -29,12 +29,24 @@
   margin-right: 5px;
 }
 
+.top-padding-10 {
+  padding-top: 10px !important;
+}
+
+.no-wrap {
+  white-space: nowrap;
+}
+
 .center {
   text-align: center;
 }
 
 .draggable {
   -webkit-app-region: drag;
+}
+
+.small {
+  font-size: 10px !important;
 }
 
 .white {
