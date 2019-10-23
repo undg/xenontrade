@@ -121,12 +121,12 @@ class XenonTrade {
         }
       });
 
-      poeLog.on("areaJoin", (player) => {
-        GUI.setPlayerJoinedStatus(player.name, true);
+      poeLog.on("areaJoin", player => {
+        GUI.setPlayerJoinedStatus(player.player.name, true);
       });
 
-      poeLog.on("areaLeave", (player) => {
-        GUI.setPlayerJoinedStatus(player.name, false);
+      poeLog.on("areaLeave", player => {
+        GUI.setPlayerJoinedStatus(player.player.name, false);
       });
     } else {
       var message = "The path to your <strong>Client.txt</strong> log file is invalid. The trade helper needs the correct path to properly receive whisper messages.";
