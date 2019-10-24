@@ -1,4 +1,5 @@
 This is clone of [klayveR/xenontrade](https://github.com/klayveR/xenontrade). It is still mainly developed on and for linux. 
+I'm expecting it to work on all systems. If not, I'll be glad if you will assign issue.
 
 
 # ![](https://i.imgur.com/wVnDg8C.png) XenonTrade
