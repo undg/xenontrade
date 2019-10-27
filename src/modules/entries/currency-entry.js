@@ -29,6 +29,7 @@ class CurrencyEntry extends PriceCheckEntry {
     super.setCloseable(true);
     super.enableToggle("switch");
     super.enableToggle("expand");
+    super.enableExternalLinks();
 
     // Enable autoclose if configured
     if(config.get("autoclose.enabled") && config.get("autoclose.timeouts.currency.enabled")) {
@@ -38,6 +39,7 @@ class CurrencyEntry extends PriceCheckEntry {
 
   _buildReplacements() {
     var stackSize = this.parser.getStackSize();
+    var urlPoeapp = "https://poeapp.com/#/item-import/" + encodeURIComponent(this.item.currencyTypeName)
 
     var pay = {
       trend: this._formatTrendData(this.item.paySparkLine),
@@ -79,7 +81,8 @@ class CurrencyEntry extends PriceCheckEntry {
       { find: "conf-pay-color", replace: pay.confidence },
       { find: "chaos-icon", replace: Icons.getIconByName("Chaos Orb") },
       { find: "pay-trend", replace: pay.trend },
-      { find: "receive-trend", replace: receive.trend }
+      { find: "receive-trend", replace: receive.trend },
+      { find: "link-poeapp", replace: urlPoeapp},
     ];
   }
 }
