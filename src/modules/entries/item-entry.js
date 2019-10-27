@@ -1,3 +1,4 @@
+const LZString = require('lz-string')
 const PriceCheckEntry = require("./pricecheck-entry.js");
 const Icons = require("../gui/icons.js");
 
@@ -28,6 +29,7 @@ class ItemEntry extends PriceCheckEntry {
     // Set buttons and trends
     this.visualizeTrend();
     super.setCloseable(true);
+    super.enableExternalLinks();
     if(this.switchable) {
       super.enableToggle("switch");
     }
@@ -45,6 +47,8 @@ class ItemEntry extends PriceCheckEntry {
     var trend = super._formatTrendData(this.item.sparkline);
     var name = this.item.name;
     var info = "";
+    const tmp_data = LZString.compressToEncodedURIComponent( JSON.stringify({"info.tokenized.fullName": this.item.name }) )
+    var urlPoeapp = "https://poeapp.com/#/item-import/" + encodeURIComponent(JSON.stringify(tmp_data))
 
     // Append variant to item name if it is a variant, not on maps
     if(this.item.variant !== null && this.item.variant !== "Atlas2") {
@@ -70,7 +74,8 @@ class ItemEntry extends PriceCheckEntry {
       { find: "chaos-icon", replace: Icons.getIconByName("Chaos Orb") },
       { find: "exalted-icon", replace: Icons.getIconByName("Exalted Orb") },
       { find: "conf-color", replace: confidence },
-      { find: "trend", replace: trend }
+      { find: "trend", replace: trend },
+      { find: "link-poeapp", replace: urlPoeapp},
     ];
   }
 }

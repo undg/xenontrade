@@ -1,22 +1,23 @@
 
 ## ITEM CHECKING
-- [ ] check price on https://poeapp.com/#/item-import/${itemContents}
-  - [ ] itemContents must be url encoded
+- [X] check price on https://poeapp.com/#/item-import/${itemContents}
+  - [X] itemContents must be encodeURIComponent()
+  - [X] rate item
+  - [X] currency
+  - [ ] uniq
+- [ ] Upgrade it to json based search API.  https://github.com/poeapp/poeapp/blob/master/docs/search-url.md
 
 
 ## TRADE HELPER
 - [ ] (selling): copy to clipboard item name for later paste it in stash filter.
-    - [ ] with new stashSearch() better option is creating additional button.
-    - [ ] fix items with 'alch' in string and few others (separate lib). One time regexp is fck up, another time is missing.
+    - [X] with new stashSearch() better option is creating additional button.
+    - [ ] fix items with 'alch' in string and few others (separate lib). Once regexp is fck up, another time is missing.
 - [X] (buying): visit hideout 
 - [ ] fast ctrl+click stash slots
 - [X] fix. Players with Chinese names are not recognised by Xenontrade (or by other reason.. debug it)
-- [ ] leave party with 'thank you' message and go back to hideout.
 - [X] (other): paste to chat content from clipboard. Useful for buying from trade websites.
- [ ] PARTY
-  - [ ] Change color font if user is:
-      - [ ] blue:  in party
-      - [ ] green: in same instance
+- [X] Change color font if user is:
+    - [X] green: in same instance
 
 
 ## OTHERS
@@ -34,6 +35,7 @@
 - [X] stashSearch() and dropdown with hardcoded searches.
 - [X] stashSearch() is similar to chat()
     - [X] abstract
+- [ ] custom cmd in options for chat() and stashSearch()
 
 
 ## DEV ENV
@@ -46,6 +48,7 @@
 ## DREAMS
   - [ ] Find solution for chat macros while chat is opened.
   - [ ] Electron transparency. It is possible and easy, but buggy ;/
+  - [ ] Check if user is in same party (without hacking game)
 
 
 
