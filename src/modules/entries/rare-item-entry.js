@@ -47,6 +47,7 @@ class RareItemEntry extends PriceCheckEntry {
   _buildReplacements() {
     var baseType = this.parser.getBaseType();
     var url = "https://www.poeprices.info/api?l=" + config.get("league") + "&i=" + this.poePrices.encodedItemText + "&w=1";
+    var urlPoeapp = "https://poeapp.com/#/item-import/" + this.poePrices.poeappItemText
     var currencyIcon = "", currencyName = "";
 
     if(this.poePrices.price.currency === "chaos") {
@@ -65,7 +66,8 @@ class RareItemEntry extends PriceCheckEntry {
       { find: "item-value-max", replace: this.poePrices.price.max },
       { find: "currency-name", replace: currencyName },
       { find: "currency-icon", replace: currencyIcon },
-      { find: "link", replace: url}
+      { find: "link", replace: url},
+      { find: "link-poeapp", replace: urlPoeapp},
     ];
 
     return replacements;
@@ -187,3 +189,4 @@ class RareItemEntry extends PriceCheckEntry {
 }
 
 module.exports = RareItemEntry;
+// vim: ts=2 sw=2

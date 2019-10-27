@@ -14,6 +14,7 @@ class PoePrices {
   */
   static request(itemText) {
     return new Promise(function(resolve, reject) {
+      var poeappItemText = encodeURIComponent(itemText)
       itemText = itemText.replace(/<<.*?>>|<.*?>/g, "");
 
       var url = "https://www.poeprices.info/api?";
@@ -28,7 +29,7 @@ class PoePrices {
           log.warn("Request to poeprices.info failed. Received an empty response.\n" + JSON.stringify(requestObject, null, 4));
           reject(new Error("Request to <b>poeprices.info</b> failed. Received an empty response."));
         } else {
-          resolve({encodedItemText: parsedParams.i, price: response});
+          resolve({encodedItemText: parsedParams.i, price: response, poeappItemText: poeappItemText});
         }
       })
       .catch((error) => {
@@ -52,3 +53,4 @@ class PoePrices {
 }
 
 module.exports = PoePrices;
+// vim: ts=2 sw=2
