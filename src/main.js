@@ -36,7 +36,7 @@ function createWindow() {
     'show': false,
     'transparent': true,
     'maximizable': false,
-    'resizable': true,
+    'resizable': false,
     'fullscreenable': false,
     'alwaysOnTop': true
   });
