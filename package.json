@@ -6,7 +6,8 @@
   "scripts": {
     "postinstall": "electron-builder install-app-deps",
     "init": "npm install && electron ./",
-    "start": "electron ./",
+    "start": "ELECTRON_IS_DEV=0 electron ./",
+    "dev": "ELECTRON_IS_DEV=1 electron ./",
     "electron": "electron ./",
     "build": "build",
     "dist-linux": "build",
@@ -21,18 +22,13 @@
     "tool",
     "linux"
   ],
-  "homepage": "https://github.com/klayveR/xenontrade#readme",
+  "homepage": "https://github.com/und3rdg/xenontrade#readme",
   "bugs": {
-    "url": "https://github.com/klayveR/xenontrade/issues"
-  },
-  "author": {
-    "name": "Tobias Hoffmann",
-    "email": "tobiashoffmann7@gmail.com",
-    "url": "http://klayver.de"
+    "url": "https://github.com/und3rdg/xenontrade/issues"
   },
   "repository": {
     "type": "git",
-    "url": "https://github.com/klayveR/xenontrade.git"
+    "url": "https://github.com/und3rdg/xenontrade.git"
   },
   "license": "MIT",
   "dependencies": {

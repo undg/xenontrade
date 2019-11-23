@@ -9,8 +9,7 @@ const os = require("os");
 
 let win, tray;
 let config = Helpers.createConfig();
-// @TODO
-let debug = 0;
+
 
 // Disable auto download of updates
 autoUpdater.autoDownload = false;
@@ -37,15 +36,15 @@ function createWindow() {
     'show': false,
     'transparent': true,
     'maximizable': false,
-    'resizable': debug ? true : false,
+    'resizable': isDev ? true : false,
     'fullscreenable': false,
     'alwaysOnTop': true
   });
 
   win = mainWindow.object;
 
-  // Open dev tools when debug is enabled
-  if(debug) {
+  // Open dev tools only when isDev is enabled
+  if(isDev) {
     win.setContentSize(800, 600);
     win.webContents.openDevTools();
   }
@@ -98,7 +97,7 @@ if(shouldQuit) {
   app.quit();
   return;
 }
-if (debug) {
+if (isDev) {
     require('electron-reload')(__dirname);
 }
 
@@ -112,8 +111,6 @@ app.on("ready", () => {
   // Check for updates if not in dev mode
   if (!isDev) {
     autoUpdater.checkForUpdates();
-  }
-  if (isDev) {
   }
 });
 
@@ -144,7 +141,7 @@ ipcMain.on("install-update", (event, arg) => {
 
 // When receiving resize, resize the main window
 ipcMain.on("resize", function (ev, width, height) {
-  if(debug) { return }
+  if(isDev) { return }
   // Save previous window position
   let windowPosition = win.getPosition();
 
