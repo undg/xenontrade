@@ -5,15 +5,15 @@
 
 
 ## TRADE HELPER
-- [ ] (selling): copy to clipboard item name for later paste it in stash filter.
-    - [ ] with new stashSearch() better option is creating additional button.
-    - [ ] fix items with 'alch' in string and few others (separate lib). One time regexp is fck up, another time is missing.
+- [X] (selling): copy to clipboard item name for later paste it in stash filter.
+- [X] with new stashSearch() better option is creating additional button.
+    - [ ] fix items with 'alch' in string and few others (separate lib). Once regexp is fck up, another time is missing.
 - [X] (buying): visit hideout 
-- [ ] fast ctrl+click stash slots
+- [X] fast click stash slots
 - [X] fix. Players with Chinese names are not recognised by Xenontrade (or by other reason.. debug it)
 - [ ] leave party with 'thank you' message and go back to hideout.
 - [X] (other): paste to chat content from clipboard. Useful for buying from trade websites.
- [ ] PARTY
+ - [ ] PARTY
   - [ ] Change color font if user is:
       - [ ] blue:  in party
       - [ ] green: in same instance
@@ -21,7 +21,7 @@
 
 ## OTHERS
 - [ ] BUTONS 
-    - [ ] /dnd mute all messages
+    - [ ] custom btn's
     - [ ] /kick ${self}. $self is already in config, add options to one click update self character name. Can be done by writing dummy message on chat.
     - [X] /kick ${buyer} in own party
     - [X] /exit emergency go back do character select screen.
@@ -31,9 +31,10 @@
 - [X] minimum chat delay on my pc need to be 50ms, this is common limitation for macros.
 - [X] Info tooltips for icons in title bar.
 - [X] fix auto resize window
-- [X] stashSearch() and dropdown with hardcoded searches.
 - [X] stashSearch() is similar to chat()
-    - [X] abstract
+  - [X] abstract
+- [X] stashSearch() and dropdown with hardcoded searches.
+  - [ ] custom commands in options for chat() and stashSearch()
 
 
 ## DEV ENV
