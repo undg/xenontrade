@@ -9,6 +9,7 @@ const os = require("os");
 
 let win, tray;
 let config = Helpers.createConfig();
+// @TODO
 let debug = 0;
 
 // Disable auto download of updates
@@ -36,7 +37,7 @@ function createWindow() {
     'show': false,
     'transparent': true,
     'maximizable': false,
-    'resizable': false,
+    'resizable': debug ? true : false,
     'fullscreenable': false,
     'alwaysOnTop': true
   });
@@ -45,7 +46,7 @@ function createWindow() {
 
   // Open dev tools when debug is enabled
   if(debug) {
-    win.setSize(800, 600);
+    win.setContentSize(800, 600);
     win.webContents.openDevTools();
   }
 

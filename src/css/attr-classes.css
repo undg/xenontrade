@@ -16,10 +16,14 @@
   display: inline-block;
   margin: 0px 1px 0px 1px;
 }
-
 .button i {
   cursor: pointer !important;
 }
+.button i:hover, .button i:active {
+  opacity: .5;
+  text-shadow: white 1px 1px;
+}
+
 
 .left-margin {
   margin-left: 5px;

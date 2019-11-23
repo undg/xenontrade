@@ -110,6 +110,9 @@ class GUI {
     $(".menu").find("[data-button='cmd7']").click( () => PathOfExile.stashSearch('"normal"') )
     $(".menu").find("[data-button='cmd8']").click( () => PathOfExile.stashSearch('"unidentified"') )
     $(".menu").find("[data-button='cmd9']").click( () => PathOfExile.stashSearch('"uniq"') )
+    $(".menu").find("[data-button='cmd10']").click( () => PathOfExile.stashSearch('"rare"') )
+
+    $(".menu").find("[data-stashsearch]").click( e => PathOfExile.stashSearch(e.currentTarget.dataset.stashsearch) )
   }
 
   /**
