@@ -36,7 +36,7 @@ function createWindow() {
     'show': false,
     'transparent': true,
     'maximizable': false,
-    'resizable': true,
+    'resizable': false,
     'fullscreenable': false,
     'alwaysOnTop': true
   });
@@ -148,7 +148,7 @@ ipcMain.on("resize", function (ev, width, height) {
   let windowPosition = win.getPosition();
 
   // Set new window size
-  win.setSize(Math.round(width), Math.round(height));
+  win.setContentSize(Math.round(width), Math.round(height));
 
   // Apply previous position again to fix up- and downwards resize on some Linux distros
   if(os.platform() === "linux") {
