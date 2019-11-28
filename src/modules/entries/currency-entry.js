@@ -1,5 +1,6 @@
 const PriceCheckEntry = require("./pricecheck-entry.js");
 const Icons = require("../gui/icons.js");
+const Gui = require("../gui/gui.js");
 
 class CurrencyEntry extends PriceCheckEntry {
   /**
@@ -34,6 +35,7 @@ class CurrencyEntry extends PriceCheckEntry {
     if(config.get("autoclose.enabled") && config.get("autoclose.timeouts.currency.enabled")) {
       super.enableAutoClose(config.get("autoclose.timeouts.currency.value"));
     }
+    Gui.initStashSearchButtons()
   }
 
   _buildReplacements() {
@@ -85,3 +87,4 @@ class CurrencyEntry extends PriceCheckEntry {
 }
 
 module.exports = CurrencyEntry;
+// vim: ts=2 sw=2

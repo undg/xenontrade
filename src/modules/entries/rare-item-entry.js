@@ -2,6 +2,7 @@ const PriceCheckEntry = require("./pricecheck-entry.js");
 const Icons = require("../gui/icons.js");
 const querystring = require("querystring");
 const https = require("https");
+const Gui = require("../gui/gui.js");
 
 class RareItemEntry extends PriceCheckEntry {
   /**
@@ -42,6 +43,7 @@ class RareItemEntry extends PriceCheckEntry {
         super.enableAutoClose(config.get("autoclose.timeouts.rare.value"));
       }
     }
+    Gui.initStashSearchButtons()
   }
 
   _buildReplacements() {
@@ -187,3 +189,4 @@ class RareItemEntry extends PriceCheckEntry {
 }
 
 module.exports = RareItemEntry;
+// vim: ts=2 sw=2

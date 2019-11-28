@@ -100,8 +100,16 @@ class GUI {
     $(".menu").find("[data-button='close-all']").click( () => GUI.closeAllEntries() );
     $(".menu").find("[data-button='submenu']").click(   e => GUI.toggleSubmenu(e) )
 
-    // stash search in submenu
-    $(".menu").find("[data-stashsearch]").click( e => PathOfExile.stashSearch(e.currentTarget.dataset.stashsearch) )
+    $("[data-stashsearch]").click( e => PathOfExile.stashSearch(e.currentTarget.dataset.stashsearch) )
+    this.initStashSearchButtons()
+  }
+
+  /**
+  * Initializes or reset stash search buttons.
+  */
+  static initStashSearchButtons() {
+    $("[data-stashsearch]").off('click')
+    $("[data-stashsearch]").click( e => PathOfExile.stashSearch(e.currentTarget.dataset.stashsearch) )
   }
 
   /**
@@ -415,3 +423,4 @@ class GUI {
 }
 
 module.exports = GUI;
+// vim: ts=2 sw=2

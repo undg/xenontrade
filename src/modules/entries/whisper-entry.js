@@ -1,6 +1,7 @@
 const Entry = require("../entry.js");
 const Icons = require("../gui/icons.js");
 const PathOfExile = require("../poe.js");
+const Gui = require("../gui/gui.js");
 
 class WhisperEntry extends Entry {
   /**
@@ -89,25 +90,21 @@ class WhisperEntry extends Entry {
     } else {
       this._enableTradeButton("kick");
       this._enableTradeButton("invite");
-      this._enableTradeButton("stashSearch");
     }
 
+    this._enableTradeButton("stashSearch");
     this._enableTradeButton("trade");
   }
 
   _enableTradeButton(buttonAttr) {
     const button = this.getJQueryObject().find("[data-button='" + buttonAttr + "']");
     const command = button.attr("data-command");
-    const isSearch = (buttonAttr === "stashSearch")
 
     button.show();
     super.updateMiddleWidth();
 
-    const action = isSearch
-      ? PathOfExile.stashSearch
-      : PathOfExile.chat
-
-    button.click(() => action(command));
+    Gui.initStashSearchButtons()
+    button.click(() => PathOfExile.chat(command));
   }
 
   _addChatButtons() {
@@ -199,4 +196,4 @@ class WhisperEntry extends Entry {
 }
 
 module.exports = WhisperEntry;
-// vim: set ts=2 sw=2
+// vim: ts=2 sw=2

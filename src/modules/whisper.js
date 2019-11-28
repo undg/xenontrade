@@ -7,10 +7,11 @@ class Whisper {
    *
    * @constructor
    */
-    constructor(message) {
-        this.message = message;
-        this.tradeInfo = this._getItemTradeInfo() || this._getBulkTradeInfo();
-    }
+  constructor(message) {
+    this.message = message;
+    this.tradeInfo = this._getItemTradeInfo() || this._getBulkTradeInfo();
+
+  }
 
   _getItemTradeInfo() {
     var message = this.message.message;
@@ -163,3 +164,4 @@ class Whisper {
 }
 
 module.exports = Whisper;
+// vim: ts=2 sw=2
