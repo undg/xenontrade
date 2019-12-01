@@ -168,3 +168,4 @@ class XenonTrade {
 }
 
 global.app = new XenonTrade();
+// vim: ts=2 sw=2

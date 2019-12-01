@@ -153,3 +153,4 @@ ipcMain.on("resize", function (ev, width, height) {
     win.setPosition(windowPosition[0], windowPosition[1]);
   }
 });
+// vim: ts=2 sw=2

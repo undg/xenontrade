@@ -862,5 +862,13 @@
     "Flesh-Eater": "https://web.poecdn.com/image/Art/2DItems/Weapons/OneHandWeapons/OneHandMaces/OneHandMace6Unique.png?scale=1&w=2&h=3",
     "Ungil's Gauche": "https://web.poecdn.com/image/Art/2DItems/Weapons/OneHandWeapons/Daggers/Dagger3unique.png?scale=1&w=1&h=3",
     "Gorebreaker": "https://web.poecdn.com/image/Art/2DItems/Weapons/OneHandWeapons/OneHandMaces/OneHandMace3Unique.png?scale=1&w=1&h=3",
-    "Wildslash": "https://web.poecdn.com/image/Art/2DItems/Weapons/OneHandWeapons/Claws/Wildslash.png?scale=1&w=2&h=2"
+    "Wildslash": "https://web.poecdn.com/image/Art/2DItems/Weapons/OneHandWeapons/Claws/Wildslash.png?scale=1&w=2&h=2",
+
+    "Timeless Vaal Splinter": "https://web.poecdn.com/image/Art/2DItems/Maps/VaalShard.png?scale=1&w=1&h=1",
+    "Timeless Eternal Empire Splinter": "https://web.poecdn.com/image/Art/2DItems/Maps/EternalEmpireShard.png?scale=1&w=1&h=1",
+    "Timeless Karui Splinter": "https://web.poecdn.com/image/Art/2DItems/Maps/KaruiShard.png?scale=1&w=1&h=1",
+    "Timeless Maraketh Splinter": "https://web.poecdn.com/image/Art/2DItems/Maps/MarakethShard.png?scale=1&w=1&h=1",
+    "Timeless Templar Splinter": "https://web.poecdn.com/image/Art/2DItems/Maps/TemplarShard.png?scale=1&w=1&h=1",
+
+    "Polished Legion Scarab": "https://web.poecdn.com/image/Art/2DItems/Currency/Scarabs/NormalScarabLegion.png?scale=1&w=1&h=1"
 }
