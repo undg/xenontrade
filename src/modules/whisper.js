@@ -10,7 +10,6 @@ class Whisper {
   constructor(message) {
     this.message = message;
     this.tradeInfo = this._getItemTradeInfo() || this._getBulkTradeInfo();
-
   }
 
   _getItemTradeInfo() {
