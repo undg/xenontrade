@@ -92,13 +92,12 @@ class GUI {
     $(".menu").find("[data-button='update']").click(    () => Pricecheck.updateNinja() );
 
     $(".menu").find("[data-button='buy']").click(       () => PathOfExile.chat(electron.clipboard.readText()) );
-    $(".menu").find("[data-button='hideout']").click(   () => PathOfExile.chat('/hideout') );
-    $(".menu").find("[data-button='logout']").click(    () => PathOfExile.chat('/exit') );
+    $(".menu").find("[data-chat]").click(                e => PathOfExile.chat(e.currentTarget.dataset.chat) )
 
     $(".menu").find("[data-button='settings']").click(  () => GUI.toggleSettingsWindow() );
     $(".menu").find("[data-button='lock']").click(      () => GUI.toggleLock() );
     $(".menu").find("[data-button='close-all']").click( () => GUI.closeAllEntries() );
-    $(".menu").find("[data-button='submenu']").click(   e => GUI.toggleSubmenu(e) )
+    $(".menu").find("[data-button='submenu']").click(    e => GUI.toggleSubmenu(e) )
 
     $("[data-stashsearch]").click( e => PathOfExile.stashSearch(e.currentTarget.dataset.stashsearch) )
     this.initStashSearchButtons()
