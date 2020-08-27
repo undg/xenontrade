@@ -74,30 +74,19 @@
   },
   "changes": {
     "0.1.2": {
-      "add": [
-        "window.poll"
-      ]
+      "add": ["window.poll"]
     },
     "0.2.0": {
-      "add": [
-        "autoclose.timeouts.rare"
-      ]
+      "add": ["autoclose.timeouts.rare"]
     },
     "0.3.4": {
-      "add": [
-        "window.zoomFactor"
-      ]
+      "add": ["window.zoomFactor"]
     },
     "0.4.0": {
-      "add": [
-        "hideMenu"
-      ]
+      "add": ["hideMenu"]
     },
     "0.5.0": {
-      "add": [
-        "characterName",
-        "tradehelper"
-      ]
+      "add": ["characterName", "tradehelper"]
     }
   }
 }

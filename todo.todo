@@ -12,7 +12,7 @@
   - [X] fix. Players with Chinese/Russian names. (regexp in one lib)
 - [X] (buying): visit hideout 
 - [ ] leave party with 'thank you' message and go back to hideout.
-- [ ] kick from party with 'thank you' message.
+- [x] kick from party with 'thank you' message.
 - [X] (buying): paste to chat content from clipboard. Useful for buying from trade websites.
 - [X] detect and highlight/unhighlight user entering/leaving instance.
 

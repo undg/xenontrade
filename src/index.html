@@ -1,196 +1,215 @@
 <!DOCTYPE html>
 <html>
-<head>
-  <meta charset="UTF-8">
-  <title>XenonTrade</title>
-  <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Roboto:400,700">
-  <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.2.0/css/all.css" integrity="sha384-hWVjflwFxL6sNzntih27bfxkr27PmbbK/iSvJ+a4+0owXq79v+lsFkW54bOGbiDQ" crossorigin="anonymous">
-  <link rel="stylesheet" href="css/attr-classes.css">
-  <link rel="stylesheet" href="css/main.css">
-</head>
-<body>
-  <div class="container">
-    <div class="menu draggable">
-      <div class="flex">
-        <div class="left">
-          <div class="button" data-button="settings">
-            <i  class="fas fa-cog grey"
-                title="Settings"></i>
+  <head>
+    <meta charset="UTF-8" />
+    <title>XenonTrade</title>
+    <link
+      rel="stylesheet"
+      href="https://fonts.googleapis.com/css?family=Roboto:400,700"
+    />
+    <link
+      rel="stylesheet"
+      href="https://use.fontawesome.com/releases/v5.2.0/css/all.css"
+      integrity="sha384-hWVjflwFxL6sNzntih27bfxkr27PmbbK/iSvJ+a4+0owXq79v+lsFkW54bOGbiDQ"
+      crossorigin="anonymous"
+    />
+    <link rel="stylesheet" href="css/attr-classes.css" />
+    <link rel="stylesheet" href="css/main.css" />
+  </head>
+  <body>
+    <div class="container">
+      <div class="menu draggable">
+        <div class="flex">
+          <div class="left">
+            <div class="button" data-button="settings">
+              <i class="fas fa-cog grey" title="Settings"></i>
+            </div>
+            <div class="button" data-button="update">
+              <i
+                class="fas fa-sync-alt grey"
+                title="Update prices on poe.ninja"
+              ></i>
+            </div>
+            <div class="button" data-button="close-all">
+              <i class="fas fa-times-circle grey" title="Close all items."></i>
+            </div>
+            <div class="button" data-button="status" style="display: none;">
+              i
+              <i
+                class="fas fa-exclamation-circle red"
+                title="Item not found"
+              ></i>
+            </div>
           </div>
-          <div class="button" data-button="update">
-            <i  class="fas fa-sync-alt grey"
-                title="Update prices on poe.ninja"></i>
+          <div class="middle">
+            <div class="button" data-button="buy">
+              <i
+                class="fas fa-shopping-cart grey"
+                title="Paste clipboard content to game chat."
+              ></i>
+            </div>
+            <div class="button" data-chat="/hideout">
+              <i class="fas fa-home grey" title="Go back to your hideout."></i>
+            </div>
+            <div class="button" data-chat="/delve">
+              <i class="fas fa-subway grey" title="Go to delve."></i>
+            </div>
+            <div class="button" data-chat="/exit">
+              <i
+                class="fas fa-sign-out-alt red"
+                title="Emergency! Go back to character screen."
+              ></i>
+            </div>
           </div>
-          <div class="button" data-button="close-all">
-            <i  class="fas fa-times-circle grey"
-                title="Close all items."></i>
-          </div>
-          <div class="button" data-button="status" style="display: none">i
-            <i  class="fas fa-exclamation-circle red"
-                title="Item not found"></i>
-          </div>
-        </div>
-        <div class="middle">
-          <div class="button" data-button="buy">
-            <i  class="fas fa-shopping-cart grey"
-                title="Paste clipboard content to game chat."></i>
-          </div>
-          <div class="button" data-chat="/hideout">
-            <i  class="fas fa-home grey"
-                title="Go back to your hideout."></i>
-          </div>
-          <div class="button" data-chat="/delve">
-            <i  class="fas fa-subway grey"
-                title="Go to delve."></i>
-          </div>
-          <div class="button" data-chat="/exit">
-            <i  class="fas fa-sign-out-alt red"
-                title="Emergency! Go back to character screen."></i>
-          </div>
-        </div>
-        <div class="right">
-          <div class="button" data-button="submenu">
-            <i  class="fas fa-arrow-down grey"
-                title="Toggle submenu"></i>
-          </div>
-          <div class="button" data-button="lock">
-            <i  class="fas fa-unlock grey"
-                title="Lock position"></i>
-          </div>
-          <div class="button" data-button="minimize">
-            <i  class="fas fa-window-minimize grey"
-                title="Mineralise"></i>
-          </div>
-          <div class="button" data-button="close">
-            <i  class="fas fa-window-close grey"
-                title="Exit"></i>
+          <div class="right">
+            <div class="button" data-button="submenu">
+              <i class="fas fa-arrow-down grey" title="Toggle submenu"></i>
+            </div>
+            <div class="button" data-button="lock">
+              <i class="fas fa-unlock grey" title="Lock position"></i>
+            </div>
+            <div class="button" data-button="minimize">
+              <i class="fas fa-window-minimize grey" title="Mineralise"></i>
+            </div>
+            <div class="button" data-button="close">
+              <i class="fas fa-window-close grey" title="Exit"></i>
+            </div>
           </div>
         </div>
       </div>
+
+      <div class="menu dropdown closed small" id="submenu">
+        <div class="flex">
+          <div class="left"></div>
+          <div class="middle">
+            <hr />
+            <!-- Rolling maps -->
+            <div class="button" data-stashSearch='"cannot regenerate life"'>
+              <i class="fas grey">Reg</i>
+            </div>
+            <div
+              class="button"
+              data-stashSearch='"cursed with temporal chains"'
+            >
+              <i class="fas grey">Chain</i>
+            </div>
+            <div
+              class="button"
+              data-stashSearch='"monsters reflect" "% of physical damage"'
+            >
+              <i class="fas grey">Phy</i>
+            </div>
+            <div
+              class="button"
+              data-stashSearch='"monsters reflect" "% of elemental damage"'
+            >
+              <i class="fas grey">Ele</i>
+            </div>
+            <div class="button" data-stashSearch='"quality: +20%"'>
+              <i class="fas grey">20%</i>
+            </div>
+            <div class="button" data-stashSearch="corrupted">
+              <i class="fas grey">Cor</i>
+            </div>
+            <div class="button" data-stashSearch='"unidentified"'>
+              <i class="fas grey">Unident</i>
+            </div>
+            <div class="button" data-stashSearch='"normal"'>
+              <i class="fas grey">Norm</i>
+            </div>
+            <div class="button" data-stashSearch='"rare"'>
+              <i class="fas grey">Rare</i>
+            </div>
+            <div class="button" data-stashSearch='"uniq"'>
+              <i class="fas grey">Uniq</i>
+            </div>
+          </div>
+          <div class="right"></div>
+        </div>
+        <div class="flex">
+          <div class="left"></div>
+          <div class="middle">
+            <hr />
+            <!-- Sorting out dump stash -->
+            <div class="button" data-stashSearch='"tier:" travel map'>
+              <i class="fas grey">Map</i>
+            </div>
+            <div class="button" data-stashSearch='"can be used in a personal map device"'>
+              <i class="fas grey">Sac</i>
+            </div>
+            <div class="button" data-stashSearch='"card"'>
+              <i class="fas grey">Card</i>
+            </div>
+            <div
+              class="button"
+              data-stashSearch='"Right click to remove from a socket." gem'
+            >
+              <i class="fas grey">Gem</i>
+            </div>
+            <div class="button" data-stashSearch="essence">
+              <i class="fas grey">Essence</i>
+            </div>
+            <div class="button" data-stashSearch="resonator fossil">
+              <i class="fas grey">Fossil</i>
+            </div>
+            <div class="button" data-stashSearch='"oils at cassia"'>
+              <i class="fas grey">Oil</i>
+            </div>
+            <div class="button" data-stashSearch='"samples in tane"'>
+              <i class="fas grey">Samples</i>
+            </div>
+            <div class="button" data-stashSearch="currency">
+              <i class="fas grey">$$$</i>
+            </div>
+            <hr />
+          </div>
+          <div class="right"></div>
+        </div>
+      </div>
+      <div class="entries"></div>
     </div>
 
+    <script>
+      window.$ = window.jQuery = require("jquery");
+    </script>
+    <script type="text/javascript" src="lib/jquery.peity.min.js"></script>
+    <script type="text/javascript" src="lib/moment.min.js"></script>
+    <script type="text/javascript">
+      $.fn.peity.defaults.line = {
+        delimiter: ",",
+        fill: "#404c60",
+        height: 16,
+        max: null,
+        min: 0,
+        stroke: "#748199",
+        strokeWidth: 1,
+        width: 35,
+      };
 
-    <div class="menu dropdown closed small" id="submenu">
-      <div class="flex">
-        <div class="left">
-        </div>
-        <div class="middle">
-          <hr>
-          <!-- Rolling maps -->
-          <div class="button" data-stashSearch='"cannot regenerate life"'>
-            <i  class="fas grey">Reg</i>
-          </div>
-          <div class="button" data-stashSearch='"cursed with temporal chains"'>
-            <i  class="fas grey">Chain</i>
-          </div>
-          <div class="button" data-stashSearch='"monsters reflect" "% of physical damage"'>
-            <i  class="fas grey">Phy</i>
-          </div>
-          <div class="button" data-stashSearch='"monsters reflect" "% of elemental damage"'>
-            <i  class="fas grey">Ele</i>
-          </div>
-          <div class="button" data-stashSearch='"quality: +20%"'>
-            <i  class="fas grey">20%</i>
-          </div>
-          <div class="button" data-stashSearch='corrupted'>
-            <i  class="fas grey">Cor</i>
-          </div>
-          <div class="button" data-stashSearch='"unidentified"'>
-            <i  class="fas grey">Unident</i>
-          </div>
-          <div class="button" data-stashSearch='"normal"'>
-            <i  class="fas grey">Norm</i>
-          </div>
-          <div class="button" data-stashSearch='"rare"'>
-            <i  class="fas grey">Rare</i>
-          </div>
-          <div class="button" data-stashSearch='"uniq"'>
-            <i  class="fas grey">Uniq</i>
-          </div>
-        </div>
-        <div class="right">
-        </div>
-      </div>
-      <div class="flex">
-        <div class="left">
-        </div>
-        <div class="middle">
-          <hr>
-          <!-- Sorting out dump stash -->
-          <div class="button" data-stashSearch='"tier:" travel map'>
-            <i  class="fas grey">Map</i>
-          </div>
-          <div class="button" data-stashSearch='"card"'>
-            <i  class="fas grey">Card</i>
-          </div>
-          <div class="button" data-stashSearch='"Right click to remove from a socket." gem'>
-            <i  class="fas grey">Gem</i>
-          </div>
-          <div class="button" data-stashSearch='resonator fossil'>
-            <i  class="fas grey">Fossil</i>
-          </div>
-          <div class="button" data-stashSearch='splinter'>
-            <i  class="fas grey">Splinter</i>
-          </div>
-          <div class="button" data-stashSearch='essence'>
-            <i  class="fas grey">Essence</i>
-          </div>
-          <div class="button" data-stashSearch=''>
-            <i  class="fas grey"></i>
-          </div>
-          <div class="button" data-stashSearch='"sacrifice at"'>
-            <i  class="fas grey">Sac</i>
-          </div>
-          <div class="button" data-stashSearch='"fragment of"'>
-            <i  class="fas grey">Frag</i>
-          </div>
-          <div class="button" data-stashSearch='currency'>
-            <i  class="fas grey">$$$</i>
-          </div>
-          <hr>
-        </div>
-        <div class="right">
-        </div>
-      </div>
-    </div>
-    <div class="entries"></div>
-  </div>
+      moment.updateLocale("en", {
+        relativeTime: {
+          future: "in %s",
+          past: "%s",
+          s: "%ds",
+          ss: "%ds",
+          m: "1m",
+          mm: "%dm",
+          h: "1h",
+          hh: "%dh",
+          d: "1d",
+          dd: "%dd",
+          M: "1m",
+          MM: "%dm",
+          y: "1y",
+          yy: "%dy",
+        },
+      });
+    </script>
 
-  <script>window.$ = window.jQuery = require('jquery');</script>
-  <script type="text/javascript" src="lib/jquery.peity.min.js"></script>
-  <script type="text/javascript" src="lib/moment.min.js"></script>
-  <script type="text/javascript">
-  $.fn.peity.defaults.line = {
-    delimiter: ",",
-    fill: "#404c60",
-    height: 16,
-    max: null,
-    min: 0,
-    stroke: "#748199",
-    strokeWidth: 1,
-    width: 35
-  }
-
-  moment.updateLocale('en', {
-    relativeTime : {
-      future: "in %s",
-      past:   "%s",
-      s  : '%ds',
-      ss : '%ds',
-      m:  "1m",
-      mm: "%dm",
-      h:  "1h",
-      hh: "%dh",
-      d:  "1d",
-      dd: "%dd",
-      M:  "1m",
-      MM: "%dm",
-      y:  "1y",
-      yy: "%dy"
-    }
-  });
-  </script>
-
-  <script type="text/javascript" src="index.js"></script>
-</body>
+    <script type="text/javascript" src="index.js"></script>
+  </body>
 </html>
+
+<!--
+  vim: ts=2 sw=2
+-->

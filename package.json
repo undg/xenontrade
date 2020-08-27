@@ -1,109 +1,109 @@
 {
-  "name": "XenonTrade",
-  "version": "0.6.8",
-  "description": "Path of Exile trading app for price checking and trade whisper management",
-  "main": "src/main.js",
-  "scripts": {
-    "postinstall": "electron-builder install-app-deps",
-    "init": "npm install && electron ./",
-    "start": "ELECTRON_IS_DEV=0 electron ./",
-    "dev": "ELECTRON_IS_DEV=1 electron ./",
-    "electron": "electron ./",
-    "build": "build",
-    "dist-linux": "build",
-    "dist-win": "build --win",
-    "publish-linux": "build --linux --publish always",
-    "publish-win": "build --win --publish always"
-  },
-  "keywords": [
-    "poe",
-    "path of exile",
-    "trade",
-    "tool",
-    "linux"
-  ],
-  "homepage": "https://github.com/und3rdg/xenontrade#readme",
-  "bugs": {
-    "url": "https://github.com/und3rdg/xenontrade/issues"
-  },
-  "repository": {
-    "type": "git",
-    "url": "https://github.com/und3rdg/xenontrade.git"
-  },
-  "license": "MIT",
-  "dependencies": {
-    "active-win": "^3.0.0",
-    "child-process-es6-promise": "^1.2.0",
-    "clipboardy": "github:klayveR/clipboardy",
-    "dot-prop": "^4.2.0",
-    "electron-is-dev": "^0.3.0",
-    "electron-log": "^2.2.17",
-    "electron-reload": "^1.4.1",
-    "electron-store": "^2.0.0",
-    "electron-updater": "^4",
-    "electron-window-manager": "^1.0.6",
-    "ffi": "^2.2.0",
-    "iohook": "^0.2.0",
-    "jquery": "^3.3.1",
-    "js-base64": "^2.4.9",
-    "poe-log-monitor": "^1.2.4",
-    "poe-ninja-api-manager": "^0.7.0",
-    "promise-fs": "^1.3.0",
-    "ref": "^1.3.5",
-    "request-promise-native": "^1.0.5",
-    "robotjs": "^0.5.1",
-    "underscore": "^1.9.1",
-    "x11": "^2.3.0",
-    "x11-prop": "^0.4.3"
-  },
-  "cmake-js": {
-    "runtime": "electron",
-    "runtimeVersion": "2.0.10"
-  },
-  "iohook": {
-    "targets": [
-      "node-57",
-      "electron-57"
-    ],
-    "platforms": [
-      "win32",
-      "linux"
-    ],
-    "arches": [
-      "x64",
-      "ia32"
-    ]
-  },
-  "build": {
-    "appId": "xyz.undg.xenontrade",
-    "files": [
-      "**/*",
-      "!**/{*.md,.DS_Store,.git,.hg,.svn,CVS,RCS,SCCS,__pycache__,thumbs.db,.gitignore,.gitattributes,.editorconfig,.flowconfig,.yarn-metadata.json,.idea,appveyor.yml,.travis.yml,circle.yml,npm-debug.log,.nyc_output,yarn.lock,.yarn-integrity}",
-      "build/*.png"
-    ],
-    "asar": true,
-    "asarUnpack": [
-      "*.node"
-    ],
-    "linux": {
-      "icon": "build/icon.icns",
-      "target": [
-        "AppImage"
-      ],
-      "category": "Game"
+    "name": "xenonTrade",
+    "version": "0.6.8",
+    "description": "Path of Exile trading app for price checking and trade whisper management",
+    "main": "src/main.js",
+    "scripts": {
+        "postinstall": "electron-builder install-app-deps",
+        "init": "npm install && electron ./",
+        "start": "ELECTRON_IS_DEV=0 electron ./",
+        "dev": "ELECTRON_IS_DEV=1 electron ./",
+        "electron": "electron ./",
+        "build": "build",
+        "dist-linux": "build",
+        "dist-win": "build --win",
+        "publish-linux": "build --linux --publish always",
+        "publish-win": "build --win --publish always"
     },
-    "win": {
-      "icon": "build/icon.ico",
-      "target": "nsis"
+    "keywords": [
+        "poe",
+        "path of exile",
+        "trade",
+        "tool",
+        "linux"
+    ],
+    "homepage": "https://github.com/und3rdg/xenontrade#readme",
+    "bugs": {
+        "url": "https://github.com/und3rdg/xenontrade/issues"
     },
-    "nsis": {
-      "oneClick": false,
-      "allowToChangeInstallationDirectory": true,
-      "perMachine": true
+    "repository": {
+        "type": "git",
+        "url": "https://github.com/und3rdg/xenontrade.git"
+    },
+    "license": "MIT",
+    "dependencies": {
+        "active-win": "^3.0.0",
+        "child-process-es6-promise": "^1.2.0",
+        "clipboardy": "github:klayveR/clipboardy",
+        "dot-prop": "^4.2.0",
+        "electron-is-dev": "^0.3.0",
+        "electron-log": "^2.2.17",
+        "electron-reload": "^1.4.1",
+        "electron-store": "^2.0.0",
+        "electron-updater": "^4",
+        "electron-window-manager": "^1.0.6",
+        "ffi": "^2.2.0",
+        "iohook": "^0.2.0",
+        "jquery": "^3.3.1",
+        "js-base64": "^2.4.9",
+        "poe-log-monitor": "^1.2.4",
+        "poe-ninja-api-manager": "^0.7.0",
+        "promise-fs": "^1.3.0",
+        "ref": "^1.3.5",
+        "request-promise-native": "^1.0.5",
+        "robotjs": "^0.5.1",
+        "underscore": "^1.9.1",
+        "x11": "^2.3.0",
+        "x11-prop": "^0.4.3"
+    },
+    "cmake-js": {
+        "runtime": "electron",
+        "runtimeVersion": "2.0.10"
+    },
+    "iohook": {
+        "targets": [
+            "node-57",
+            "electron-57"
+        ],
+        "platforms": [
+            "win32",
+            "linux"
+        ],
+        "arches": [
+            "x64",
+            "ia32"
+        ]
+    },
+    "build": {
+        "appId": "xyz.undg.xenontrade",
+        "files": [
+            "**/*",
+            "!**/{*.md,.DS_Store,.git,.hg,.svn,CVS,RCS,SCCS,__pycache__,thumbs.db,.gitignore,.gitattributes,.editorconfig,.flowconfig,.yarn-metadata.json,.idea,appveyor.yml,.travis.yml,circle.yml,npm-debug.log,.nyc_output,yarn.lock,.yarn-integrity}",
+            "build/*.png"
+        ],
+        "asar": true,
+        "asarUnpack": [
+            "*.node"
+        ],
+        "linux": {
+            "icon": "build/icon.icns",
+            "target": [
+                "AppImage"
+            ],
+            "category": "Game"
+        },
+        "win": {
+            "icon": "build/icon.ico",
+            "target": "nsis"
+        },
+        "nsis": {
+            "oneClick": false,
+            "allowToChangeInstallationDirectory": true,
+            "perMachine": true
+        }
+    },
+    "devDependencies": {
+        "electron": "^2.0.18",
+        "electron-builder": "^20.28.3"
     }
-  },
-  "devDependencies": {
-    "electron": "^2.0.18",
-    "electron-builder": "^20.28.3"
-  }
 }
