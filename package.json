@@ -35,7 +35,7 @@
         "active-win": "^3.0.0",
         "child-process-es6-promise": "^1.2.0",
         "clipboardy": "github:klayveR/clipboardy",
-        "dot-prop": "^4.2.0",
+        "dot-prop": "^5.1.1",
         "electron-is-dev": "^0.3.0",
         "electron-log": "^2.2.17",
         "electron-reload": "^1.4.1",
