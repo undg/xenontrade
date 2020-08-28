@@ -85,6 +85,9 @@
         "asarUnpack": [
             "*.node"
         ],
+        "appImage": {
+            "systemIntegration": "doNotAsk"
+        },
         "linux": {
             "icon": "build/icon.icns",
             "target": [
