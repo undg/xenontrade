@@ -2,66 +2,66 @@ const BaseIcons = require("../../resource/icons/baseIcons");
 const UniqueIcons = require("../../resource/icons/uniqueIcons");
 
 class Icons {
-  static getIconByName(name) {
-    if(BaseIcons.hasOwnProperty(name)) {
-      return BaseIcons[name];
+    static getIconByName(name) {
+        if(BaseIcons.hasOwnProperty(name)) {
+            return BaseIcons[name];
+        }
+
+        if(UniqueIcons.hasOwnProperty(name))  {
+            return UniqueIcons[name];
+        }
+
+        return null;
     }
 
-    if(UniqueIcons.hasOwnProperty(name))  {
-      return UniqueIcons[name];
+    static findIconByName(name) {
+        var uniqueIcon = Icons.findUniqueIconByName(name);
+        if(uniqueIcon != null) {
+            return uniqueIcon;
+        }
+
+        var baseIcon = Icons.findBaseIconByName(name);
+        if(baseIcon != null) {
+            return baseIcon;
+        }
+
+        return null;
     }
 
-    return null;
-  }
+    static findBaseIconByName(name) {
+        var icon = Icons._find(name, BaseIcons);
 
-  static findIconByName(name) {
-    var uniqueIcon = Icons.findUniqueIconByName(name);
-    if(uniqueIcon != null) {
-      return uniqueIcon;
+        if(icon != null) {
+            return icon;
+        }
+
+        return null;
     }
 
-    var baseIcon = Icons.findBaseIconByName(name);
-    if(baseIcon != null) {
-      return baseIcon;
+    static findUniqueIconByName(name) {
+        var icon = Icons._find(name, UniqueIcons);
+
+        if(icon != null) {
+            return icon;
+        }
+
+        return null;
     }
 
-    return null;
-  }
+    static _find(name, icons) {
 
-  static findBaseIconByName(name) {
-    var icon = Icons._find(name, BaseIcons);
 
-    if(icon != null) {
-      return icon;
+        for(var item in icons) {
+            var icon = icons[item];
+            var pattern = new RegExp("\\b" + item + "\\b", "gi");
+
+            if(pattern.test(name)) {
+                return icon;
+            }
+        }
+
+        return null;
     }
-
-    return null;
-  }
-
-  static findUniqueIconByName(name) {
-    var icon = Icons._find(name, UniqueIcons);
-
-    if(icon != null) {
-      return icon;
-    }
-
-    return null;
-  }
-
-  static _find(name, icons) {
-
-
-    for(var item in icons) {
-      var icon = icons[item];
-      var pattern = new RegExp("\\b" + item + "\\b", "gi");
-
-      if(pattern.test(name)) {
-        return icon;
-      }
-    }
-
-    return null;
-  }
 }
 
 module.exports = Icons;

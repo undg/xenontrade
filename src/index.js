@@ -29,153 +29,153 @@ global.templates = new Templates();
 global.ninjaAPI = new NinjaAPI();
 
 class XenonTrade {
-  /**
-   * Creates a new XenonTrade object
-   *
-   * @constructor
-   */
-  constructor() {
-    this.poeFocused = false;
-    this.autoMinimize = new AutoMinimize();
-    this.initialize();
-  }
+    /**
+     * Creates a new XenonTrade object
+     *
+     * @constructor
+     */
+    constructor() {
+        this.poeFocused = false;
+        this.autoMinimize = new AutoMinimize();
+        this.initialize();
+    }
 
-  /**
-   * Load templates, then initialize essential parts of the app
-   */
-  initialize() {
-    templates
-      .loadTemplates()
-      .then(() => {
-        // Initialize GUIs
-        GUI.initialize();
+    /**
+     * Load templates, then initialize essential parts of the app
+     */
+    initialize() {
+        templates
+            .loadTemplates()
+            .then(() => {
+                // Initialize GUIs
+                GUI.initialize();
 
-        // Initialize Others
-        this.initializeAutoMinimize();
-        this.initializeHotkeys();
-        this.initializeIpcListeners();
-        this.initializePoeLogMonitor();
+                // Initialize Others
+                this.initializeAutoMinimize();
+                this.initializeHotkeys();
+                this.initializeIpcListeners();
+                this.initializePoeLogMonitor();
 
-        // Check dependencies and update poe.ninja
-        this.checkDependencies();
-        Pricecheck.updateNinja();
-        return;
-      })
-      .catch((error) => {
-        log.error(error);
-        alert(
-          "Error initializing app. Please check the log file for more information."
-        );
-        windowManager.closeAll();
-        return;
-      });
-  }
+                // Check dependencies and update poe.ninja
+                this.checkDependencies();
+                Pricecheck.updateNinja();
+                return;
+            })
+            .catch((error) => {
+                log.error(error);
+                alert(
+                    "Error initializing app. Please check the log file for more information."
+                );
+                windowManager.closeAll();
+                return;
+            });
+    }
 
-  /**
-   * Initializes the connection between IPC main and renderer
-   */
-  initializeIpcListeners() {
-    var self = this;
+    /**
+     * Initializes the connection between IPC main and renderer
+     */
+    initializeIpcListeners() {
+        var self = this;
 
-    ipcRenderer.on("focus", function (event) {
-      GUI.onFocus();
-    });
+        ipcRenderer.on("focus", function (event) {
+            GUI.onFocus();
+        });
 
-    ipcRenderer.on("update-available", function (event, info) {
-      GUI.showUpdateAvailableEntry(info);
-    });
+        ipcRenderer.on("update-available", function (event, info) {
+            GUI.showUpdateAvailableEntry(info);
+        });
 
-    ipcRenderer.on("update-downloaded", function (event, info) {
-      GUI.showUpdateDownloadedEntry(info);
-    });
-  }
+        ipcRenderer.on("update-downloaded", function (event, info) {
+            GUI.showUpdateDownloadedEntry(info);
+        });
+    }
 
-  /**
-   * Starts the window listener based on OS
-   * The window listener automatically hides the GUI when Path of Exile is not focused
-   */
-  initializeAutoMinimize() {
-    var self = this;
+    /**
+     * Starts the window listener based on OS
+     * The window listener automatically hides the GUI when Path of Exile is not focused
+     */
+    initializeAutoMinimize() {
+        var self = this;
 
-    this.autoMinimize.initialize().then(() => {
-      self.autoMinimize.start();
-    });
-  }
+        this.autoMinimize.initialize().then(() => {
+            self.autoMinimize.start();
+        });
+    }
 
-  /**
-   * Initializes listeners for Path of Exile log file
-   */
-  initializePoeLogMonitor(logfile = config.get("tradehelper.logfile")) {
-    if (
-      config.get("tradehelper.enabled") &&
-      fs.existsSync(logfile) &&
-      logfile.includes("Client.txt")
-    ) {
-      // Remove old listeners
-      if (poeLog != null) {
-        poeLog.pause();
-        poeLog.removeAllListeners();
-      }
+    /**
+     * Initializes listeners for Path of Exile log file
+     */
+    initializePoeLogMonitor(logfile = config.get("tradehelper.logfile")) {
+        if (
+            config.get("tradehelper.enabled") &&
+            fs.existsSync(logfile) &&
+            logfile.includes("Client.txt")
+        ) {
+            // Remove old listeners
+            if (poeLog != null) {
+                poeLog.pause();
+                poeLog.removeAllListeners();
+            }
 
-      poeLog = new PathOfExileLog({ logfile: logfile });
+            poeLog = new PathOfExileLog({ logfile: logfile });
 
-      poeLog.on("whisper", (message) => {
-        var whisper = new Whisper(message);
+            poeLog.on("whisper", (message) => {
+                var whisper = new Whisper(message);
 
-        if (whisper.isTradeMessage()) {
-          new WhisperEntry(whisper).add();
+                if (whisper.isTradeMessage()) {
+                    new WhisperEntry(whisper).add();
+                }
+            });
+
+            poeLog.on("areaJoin", (player) => {
+                GUI.setPlayerJoinedStatus(player.player.name, true);
+            });
+
+            poeLog.on("areaLeave", (player) => {
+                GUI.setPlayerJoinedStatus(player.player.name, false);
+            });
+        } else {
+            var message =
+                "The path to your <strong>Client.txt</strong> log file is invalid. The trade helper needs the correct path to properly receive whisper messages.";
+            new TextEntry("Invalid log file path", message, {
+                icon: "fa-exclamation-triangle yellow",
+            }).add();
         }
-      });
-
-      poeLog.on("areaJoin", (player) => {
-        GUI.setPlayerJoinedStatus(player.player.name, true);
-      });
-
-      poeLog.on("areaLeave", (player) => {
-        GUI.setPlayerJoinedStatus(player.player.name, false);
-      });
-    } else {
-      var message =
-        "The path to your <strong>Client.txt</strong> log file is invalid. The trade helper needs the correct path to properly receive whisper messages.";
-      new TextEntry("Invalid log file path", message, {
-        icon: "fa-exclamation-triangle yellow",
-      }).add();
     }
-  }
 
-  /**
-   * Registers global hotkeys
-   */
-  initializeHotkeys() {
-    var self = this;
+    /**
+     * Registers global hotkeys
+     */
+    initializeHotkeys() {
+        var self = this;
 
-    // Register CTRL + C hotkey
-    const clipboardShortcut = ioHook.registerShortcut([29, 46], (keys) => {
-      if (config.get("pricecheck") && this.poeFocused) {
-        // Waiting 100ms before calling the processing method, because the clipboard needs some time to be updated
-        var timeout = setTimeout(function () {
-          Pricecheck.getPrice(clipboardy.readSync());
-        }, 100);
-      }
-    });
+        // Register CTRL + C hotkey
+        const clipboardShortcut = ioHook.registerShortcut([29, 46], (keys) => {
+            if (config.get("pricecheck") && this.poeFocused) {
+                // Waiting 100ms before calling the processing method, because the clipboard needs some time to be updated
+                var timeout = setTimeout(function () {
+                    Pricecheck.getPrice(clipboardy.readSync());
+                }, 100);
+            }
+        });
 
-    ioHook.start();
-  }
-
-  /**
-   * Checks if required packages are installed
-   */
-  checkDependencies() {
-    if (os.platform() === "linux") {
-      Helpers.isPackageInstalled("wmctrl").catch((error) => {
-        var message =
-          "This tool uses <strong>wmctrl</strong> to focus the Path of Exile window. It is recommended to install it for an optimal experience.";
-        new TextEntry("Missing dependency", message, {
-          icon: "fa-exclamation-triangle yellow",
-        }).add();
-      });
+        ioHook.start();
     }
-  }
+
+    /**
+     * Checks if required packages are installed
+     */
+    checkDependencies() {
+        if (os.platform() === "linux") {
+            Helpers.isPackageInstalled("wmctrl").catch((error) => {
+                var message =
+                    "This tool uses <strong>wmctrl</strong> to focus the Path of Exile window. It is recommended to install it for an optimal experience.";
+                new TextEntry("Missing dependency", message, {
+                    icon: "fa-exclamation-triangle yellow",
+                }).add();
+            });
+        }
+    }
 }
 
 global.app = new XenonTrade();
