@@ -23,21 +23,41 @@
       "type": "Resonator"
     },
     {
+      "regex": "Can be combined with other Oils at Cassia to Enchant Rings or Amulets, or to modify Blighted Maps.",
+      "type": "Oil"
+    },
+    {
+      "regex": "Sacrifice this item on the Altar of Sacrifice along with .* to transform it.",
+      "type": "Vial"
+    },
+    {
       "regex": "",
       "type": "Currency"
     }
   ],
   "Normal": [
     {
-      "regex": "Can be used in the Templar Laboratory or a personal Map Device",
-      "type": "Fragment"
-    },
-    {
-      "regex": "Templar Laboratory or a personal Map Device. Can only be used once.",
-      "type": "Fragment"
+      "regex": "Can be used in a personal Map Device to add modifiers to a Map.",
+      "type": "Scarab"
     },
     {
       "regex": "Travel to the Aspirants' Plaza and spend this item to open the Eternal Labyrinth.",
+      "type": "Fragment"
+    },
+    {
+      "regex": "Can be used in a personal Map Device.",
+      "type": "Fragment"
+    },
+    {
+      "regex": "Can be used in a personal Map Device.",
+      "type": "Fragment"
+    },
+    {
+      "regex": "Place two or more different Emblems in a Map Device to access the Domain of Timeless Conflict. Can only be used once.",
+      "type": "Fragment"
+    },
+    {
+      "regex": "Travel to .* Domain by using this item in a personal Map Device. Can only be used once.",
       "type": "Fragment"
     },
     {
@@ -65,6 +85,10 @@
     {
       "regex": "Travel to this Map by using it in the Templar Laboratory or a personal Map Device. Maps can only be used once.",
       "type": "UniqueMap"
+    },
+    {
+      "regex": "There exists in every man and woman a desire to push boundaries, to break new ground, to make great discoveries, no matter the personal cost.",
+      "type": "TODO"
     }
   ]
 }
