@@ -180,6 +180,26 @@ class PathOfExile {
 
 
     /**
+     * Run any external shell command 
+     *
+     * @param {string} script name, with path if is not in system path
+     */
+    static runShellCommand(scriptName) {
+
+        var exec = require('child_process').exec;
+        exec('poe_hlpick.sh', {
+        }, function(err, stdout, stderr) {
+            if  (err)  {
+                console.error('results', stderr);
+                throw err;
+            }
+            console.log(`${scriptName} finished.`);
+            console.log('results', stdout);
+        });
+    }
+
+
+    /**
      * Returns `true` if the league rules have a solo rules
      *
      * @return {boolean}

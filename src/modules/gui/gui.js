@@ -121,6 +121,9 @@ class GUI {
             PathOfExile.stashSearch(e.currentTarget.dataset.stashsearch)
         );
         this.initStashSearchButtons();
+        $("[data-stashgrab]").click(() =>
+            PathOfExile.runShellCommand('poe_hlpick.sh')
+        );
     }
 
     /**

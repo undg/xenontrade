@@ -1,5 +1,3 @@
-const CurrencyAbbreviations = require("../resource/currencyAbbreviations");
-
 class Whisper {
     /**
      * Creates a new Whisper object
@@ -13,9 +11,9 @@ class Whisper {
     }
 
     _getItemTradeInfo() {
-        var message = this.message.message;
-        var stashInfo = this._getStashInfo();
-        var tradeInfo = this.getDefaultTradeInfo();
+        let message = this.message.message;
+        const stashInfo = this._getStashInfo();
+        const tradeInfo = this.getDefaultTradeInfo();
 
         tradeInfo.type = "item";
 
@@ -29,14 +27,14 @@ class Whisper {
         tradeInfo.stash = stashInfo;
 
         // Trade
-        var pattern = /(wtb|Hi, I would like to buy your) (.+) listed for ([0-9.]+) (.+) in (.+)/;
-        var match = message.match(pattern);
+        const pattern = /(wtb|Hi, I would like to buy your) (.+) listed for ([0-9.]+) (.+) in (.+)/;
+        const match = message.match(pattern);
 
         if(match) {
             tradeInfo.receive.amount = "";
             tradeInfo.receive.name = match[2];
             tradeInfo.pay.amount = parseFloat(match[3]);
-            tradeInfo.pay.name = this.formatCurrencyName(match[4]);
+            tradeInfo.pay.name = match[4];
             tradeInfo.league = match[5];
             tradeInfo.trade = match[2] + " for " + match[3] + " " + match[4];
 
@@ -47,8 +45,8 @@ class Whisper {
     }
 
     _getBulkTradeInfo() {
-        var message = this.message.message;
-        var tradeInfo = this.getDefaultTradeInfo();
+        const message = this.message.message;
+        const tradeInfo = this.getDefaultTradeInfo();
 
         tradeInfo.type = "bulk";
 
@@ -58,9 +56,9 @@ class Whisper {
 
         if(match) {
             tradeInfo.receive.amount = parseFloat(match[1]);
-            tradeInfo.receive.name = this.formatCurrencyName(match[2]);
+            tradeInfo.receive.name = match[2];
             tradeInfo.pay.amount = parseFloat(match[3]);
-            tradeInfo.pay.name = this.formatCurrencyName(match[4]);
+            tradeInfo.pay.name = match[4];
             tradeInfo.league = match[5];
             tradeInfo.trade = match[1] + " " + match[2] + " for " + match[3] + " " + match[4];
 
@@ -71,8 +69,8 @@ class Whisper {
     }
 
     _getStashInfo() {
-        var pattern = / \(stash(?: tab)? "(.+)";(?: position:)? left ([0-9]+), top ([0-9]+)\)/;
-        var match = this.message.message.match(pattern);
+        const pattern = / \(stash(?: tab)? "(.+)";(?: position:)? left ([0-9]+), top ([0-9]+)\)/;
+        const match = this.message.message.match(pattern);
 
         if(match) {
             return {
@@ -84,20 +82,6 @@ class Whisper {
         }
 
         return null;
-    }
-
-    formatCurrencyName(currencyName) {
-        for(var currency in CurrencyAbbreviations) {
-            for(var abbrIndex in CurrencyAbbreviations[currency]) {
-                var abbr = CurrencyAbbreviations[currency][abbrIndex];
-
-                if(currencyName.toLowerCase().includes(abbr.toLowerCase())) {
-                    return currency;
-                }
-            }
-        }
-
-        return currencyName;
     }
 
     getDefaultTradeInfo() {
@@ -122,27 +106,15 @@ class Whisper {
     }
 
     isTradeMessage() {
-        if(this.tradeInfo != null) {
-            return true;
-        }
-
-        return false;
+        return this.tradeInfo != null;
     }
 
     hasStashData() {
-        if(this.tradeInfo.stash.tab != null) {
-            return true;
-        }
-
-        return false;
+        return this.tradeInfo.stash.tab != null
     }
 
     hasLeague() {
-        if(this.tradeInfo.league != null) {
-            return true;
-        }
-
-        return false;
+        return this.tradeInfo.league != null
     }
 
     getTradeInfo() {
