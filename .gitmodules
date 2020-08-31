@@ -1,0 +1,6 @@
+[submodule "src/autofire"]
+	path = src/autofire
+	url = git@github.com:und3rdg/autofire.git
+[submodule "src/py/autofire"]
+	path = src/py/autofire
+	url = git@github.com:und3rdg/autofire.git

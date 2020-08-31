@@ -121,9 +121,6 @@ class GUI {
             PathOfExile.stashSearch(e.currentTarget.dataset.stashsearch)
         );
         this.initStashSearchButtons();
-        $("[data-stashgrab]").click(() =>
-            PathOfExile.runShellCommand('poe_hlpick.sh')
-        );
     }
 
     /**
@@ -133,6 +130,9 @@ class GUI {
         $("[data-stashsearch]").off("click");
         $("[data-stashsearch]").click((e) =>
             PathOfExile.stashSearch(e.currentTarget.dataset.stashsearch)
+        );
+        $("[data-stashgrab]").click(() =>
+            PathOfExile.runShellCommand('./../../py/autofire/pick_highlighted.py')
         );
     }
 
