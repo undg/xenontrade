@@ -1,0 +1,63 @@
+[ ] update to new node. To install it I need node v 10
+
+## ITEM CHECKING
+- [ ] check price on https://poeapp.com/#/item-import/${itemContents}
+    - [ ] itemContents must be url encoded
+
+
+## TRADE HELPER
+- [X] (selling): search item in inventory.
+- [ ] Fork or include to repository helpers libs from |klayveR|
+    - [ ] Fix items with 'alch' in string and few others (separate lib).
+    - [x] Update |poe.ninja| api . We have missing items (incubators, synthesis uniq's and more...)
+    - [X] fix. Players with Chinese/Russian names. (regexp in one lib)
+- [X] (buying): visit hideout 
+- [ ] leave party with 'thank you' message and go back to hideout.
+- [x] kick from party with 'thank you' message.
+- [X] (buying): paste to chat content from clipboard. Useful for buying from trade websites.
+- [X] detect and highlight/unhighlight user entering/leaving instance.
+
+
+## OTHERS
+- [ ] BUTONS 
+    - [ ] custom btn's
+    - [ ] /kick ${self}. $self is already in config
+    - [X] /kick ${buyer} in own party
+    - [X] /exit emergency go back do character select screen.
+    - [X] /hideout go back to hideout
+    - [ ] add options to one click update self character name. Can be done by writing dummy message on chat.
+- [ ] .menu and .submenu:
+    - [X] hardcoded 'custom' commands
+    - [X] refactor display table to grid or flexbox,
+    - [ ] remove inner wrappers, prepare for dynamic buttons from custom options.
+- [ ] minimum chat delay on my pc need to be 5-50ms, this is common limitation for macros.
+    - [X] hardcoding
+    - [ ] lift it up to settings
+- [X] Info tooltips for icons in title bar.
+- [X] fix auto resize window
+- [X] |stashSearch()| is similar to |chat()|
+    - [X] abstract
+- [X] |stashSearch()| and dropdown with hardcoded searches.
+    - [ ] custom commands in options for |chat()| and |stashSearch()|
+
+
+## DEV ENV
+- [X] ./electron (dev argument),
+    - [X] use |electron-is-dev| lib
+    - [X] remove hardcoded debug variable,
+    - [X] dev script in package.json
+        - [X] npm start (run like binary)
+        - [X] npm run dev (devtools + window resize)
+
+
+## DREAMS
+    - [ ] Find solution for chat macros while chat is opened.
+    - [ ] Open stash.
+    - [ ] Electron transparency. It is possible and easy, but buggy ;/
+    - [ ] PARTY: detect party members.
+    - [ ] Client.txt is not always updating. BugsOfExile ^^
+
+
+
+
+vim:ft=help

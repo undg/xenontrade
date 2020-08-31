@@ -5,188 +5,187 @@ const https = require("https");
 const Gui = require("../gui/gui.js");
 
 class RareItemEntry extends PriceCheckEntry {
-  /**
-  * Creates a new RareItemEntry object
-  * // TODO: JSDocs
-  *
-  * @constructor
-  * @param {Object} poePrices poeprices.info result, including item text in base 64
-  * @param {Parser} parser Parser object
-  */
-  constructor(poePrices, parser) {
-    super();
-    this.poePrices = poePrices;
-    this.parser = parser;
-    this.selectedFeedback = "";
-  }
-
-  add() {
-    var template = templates.get("rare.html");
-    var replacements = this._buildReplacements();
-
-    // Set template, replacements and add
-    super.setTemplate(template);
-    super.setReplacements(replacements);
-    super.add();
-
-    // Set buttons, links, prediction explanation and feedback elements
-    super.setCloseable(true);
-    super.enableToggle("expand");
-    super.enableExternalLinks();
-    this._addExplanationTable();
-    this._enableFeedbackElements();
-
-    // Enable autoclose if configured
-    if(config.get("autoclose.enabled") && config.get("autoclose.timeouts.rare.enabled")) {
-      if(!(config.get("autoclose.threshold.enabled")
-        && (this.poePrices.price.min > config.get("autoclose.threshold.value") || this.poePrices.price.currency === "exalt"))) {
-        super.enableAutoClose(config.get("autoclose.timeouts.rare.value"));
-      }
-    }
-    Gui.initStashSearchButtons()
-  }
-
-  _buildReplacements() {
-    var baseType = this.parser.getBaseType();
-    var url = "https://www.poeprices.info/api?l=" + config.get("league") + "&i=" + this.poePrices.encodedItemText + "&w=1";
-    var currencyIcon = "", currencyName = "";
-
-    if(this.poePrices.price.currency === "chaos") {
-      currencyName = "Chaos Orb";
-    } else {
-      currencyName = "Exalted Orb";
+    /**
+     * Creates a new RareItemEntry object
+     * // TODO: JSDocs
+     *
+     * @constructor
+     * @param {Object} poePrices poeprices.info result, including item text in base 64
+     * @param {Parser} parser Parser object
+     */
+    constructor(poePrices, parser) {
+        super();
+        this.poePrices = poePrices;
+        this.parser = parser;
+        this.selectedFeedback = "";
     }
 
-    currencyIcon = Icons.getIconByName(currencyName);
+    add() {
+        var template = templates.get("rare.html");
+        var replacements = this._buildReplacements();
 
-    var replacements = [
-      { find: "item-name", replace: this.parser.getName() },
-      { find: "item-icon", replace: Icons.getIconByName(baseType) },
-      { find: "item-baseType", replace: baseType },
-      { find: "item-value-min", replace: this.poePrices.price.min },
-      { find: "item-value-max", replace: this.poePrices.price.max },
-      { find: "currency-name", replace: currencyName },
-      { find: "currency-icon", replace: currencyIcon },
-      { find: "link", replace: url}
-    ];
+        // Set template, replacements and add
+        super.setTemplate(template);
+        super.setReplacements(replacements);
+        super.add();
 
-    return replacements;
-  }
+        // Set buttons, links, prediction explanation and feedback elements
+        super.setCloseable(true);
+        super.enableToggle("expand");
+        super.enableExternalLinks();
+        this._addExplanationTable();
+        this._enableFeedbackElements();
 
-  _addExplanationTable() {
-    for(var modIndex in this.poePrices.price.pred_explanation) {
-      var mod = this.poePrices.price.pred_explanation[modIndex];
-      var percentage = (mod[1] * 100).toFixed(2);
-
-      this.getJQueryObject().find("tbody:last-child").append(
-        "<tr><td class='percentage grey'>" + percentage + "%</td><td class='mod'>" + mod[0] + "</td></tr>"
-      );
-    }
-  }
-
-  _enableFeedbackElements() {
-    var self = this;
-    var textarea = this.getJQueryObject().find("[data-comment]").find("textarea");
-
-    textarea.focusout(function() {
-      GUI.onFocus();
-    });
-
-    // Send feedback button
-    this.getJQueryObject().find("[data-feedback-send]").click(function() {
-      self._sendFeedback();
-    });
-
-    // Feedback buttons (fair, high, low)
-    this.getJQueryObject().find("[data-feedback]").each(function() {
-      $(this).click(function() {
-        self._feedbackButtonClick($(this));
-      });
-    });
-  }
-
-  _removeFeedbackButtons() {
-    this.getJQueryObject().find("[data-feedback]").each(function() {
-      $(this).remove();
-    });
-  }
-
-  _feedbackButtonClick(selector) {
-    var feedback = selector.attr("data-feedback")
-
-    // Cancel auto-close if feedback button is pressed
-    if(this.timeout != null) {
-      this.cancelAutoClose();
-    }
-
-    if(feedback !== this.selectedFeedback) {
-      this.getJQueryObject().find("[data-feedback]").each(function() {
-        $(this).removeClass("active");
-      });
-
-      selector.addClass("active");
-      this._toggleCommentBox(true);
-      this.selectedFeedback = feedback;
-    } else {
-      selector.removeClass("active");
-      this._toggleCommentBox(false);
-      this.selectedFeedback = "";
-    }
-  }
-
-  _toggleCommentBox(toggle) {
-    var selector = this.getJQueryObject().find("[data-comment]");
-    selector.toggle(toggle);
-
-    GUI.updateWindowHeight();
-  }
-
-  _sendFeedback() {
-    if(["fair", "low", "high"].includes(this.selectedFeedback)) {
-      var text = this.getJQueryObject().find("[data-comment]").find("textarea").val();
-      this._toggleCommentBox(false);
-      this._removeFeedbackButtons();
-
-      var postData = querystring.stringify({
-        selector: this.selectedFeedback,
-        feedbacktxt: text,
-        qitem_txt: this.poePrices.encodedItemText,
-        source: "xenontrade",
-        min: this.poePrices.price.min,
-        max: this.poePrices.price.max,
-        currency: this.poePrices.price.currency,
-        debug: 0
-      });
-
-      var options = {
-        hostname: "poeprices.info",
-        port: 443,
-        path: "/send_feedback",
-        method: "POST",
-        headers: {
-          "Content-Type": "application/x-www-form-urlencoded",
-          "Content-Length": postData.length
+        // Enable autoclose if configured
+        if(config.get("autoclose.enabled") && config.get("autoclose.timeouts.rare.enabled")) {
+            if(!(config.get("autoclose.threshold.enabled")
+                && (this.poePrices.price.min > config.get("autoclose.threshold.value") || this.poePrices.price.currency === "exalt"))) {
+                super.enableAutoClose(config.get("autoclose.timeouts.rare.value"));
+            }
         }
-      };
-
-      var infoText = this.getJQueryObject().find("[data-feedback-info]");
-      infoText.html("Sending feedback...");
-
-      var req = https.request(options, (res) => {
-        res.on("data", (d) => {
-          infoText.html("Thank you for your feedback!");
-        });
-      });
-
-      req.on("error", (e) => {
-        infoText.html("An error occured while sending your feedback.");
-      });
-
-      req.write(postData);
-      req.end();
+        Gui.initStashSearchButtons()
     }
-  }
+
+    _buildReplacements() {
+        var baseType = this.parser.getBaseType();
+        var url = "https://www.poeprices.info/api?l=" + config.get("league") + "&i=" + this.poePrices.encodedItemText + "&w=1";
+        var currencyIcon = "", currencyName = "";
+
+        if(this.poePrices.price.currency === "chaos") {
+            currencyName = "Chaos Orb";
+        } else {
+            currencyName = "Exalted Orb";
+        }
+
+        currencyIcon = Icons.getIconByName(currencyName);
+
+        var replacements = [
+            { find: "item-name", replace: this.parser.getName() },
+            { find: "item-icon", replace: Icons.getIconByName(baseType) },
+            { find: "item-baseType", replace: baseType },
+            { find: "item-value-min", replace: this.poePrices.price.min },
+            { find: "item-value-max", replace: this.poePrices.price.max },
+            { find: "currency-name", replace: currencyName },
+            { find: "currency-icon", replace: currencyIcon },
+            { find: "link", replace: url}
+        ];
+
+        return replacements;
+    }
+
+    _addExplanationTable() {
+        for(var modIndex in this.poePrices.price.pred_explanation) {
+            var mod = this.poePrices.price.pred_explanation[modIndex];
+            var percentage = (mod[1] * 100).toFixed(2);
+
+            this.getJQueryObject().find("tbody:last-child").append(
+                "<tr><td class='percentage grey'>" + percentage + "%</td><td class='mod'>" + mod[0] + "</td></tr>"
+            );
+        }
+    }
+
+    _enableFeedbackElements() {
+        var self = this;
+        var textarea = this.getJQueryObject().find("[data-comment]").find("textarea");
+
+        textarea.focusout(function() {
+            GUI.onFocus();
+        });
+
+        // Send feedback button
+        this.getJQueryObject().find("[data-feedback-send]").click(function() {
+            self._sendFeedback();
+        });
+
+        // Feedback buttons (fair, high, low)
+        this.getJQueryObject().find("[data-feedback]").each(function() {
+            $(this).click(function() {
+                self._feedbackButtonClick($(this));
+            });
+        });
+    }
+
+    _removeFeedbackButtons() {
+        this.getJQueryObject().find("[data-feedback]").each(function() {
+            $(this).remove();
+        });
+    }
+
+    _feedbackButtonClick(selector) {
+        var feedback = selector.attr("data-feedback")
+
+        // Cancel auto-close if feedback button is pressed
+        if(this.timeout != null) {
+            this.cancelAutoClose();
+        }
+
+        if(feedback !== this.selectedFeedback) {
+            this.getJQueryObject().find("[data-feedback]").each(function() {
+                $(this).removeClass("active");
+            });
+
+            selector.addClass("active");
+            this._toggleCommentBox(true);
+            this.selectedFeedback = feedback;
+        } else {
+            selector.removeClass("active");
+            this._toggleCommentBox(false);
+            this.selectedFeedback = "";
+        }
+    }
+
+    _toggleCommentBox(toggle) {
+        var selector = this.getJQueryObject().find("[data-comment]");
+        selector.toggle(toggle);
+
+        GUI.updateWindowHeight();
+    }
+
+    _sendFeedback() {
+        if(["fair", "low", "high"].includes(this.selectedFeedback)) {
+            var text = this.getJQueryObject().find("[data-comment]").find("textarea").val();
+            this._toggleCommentBox(false);
+            this._removeFeedbackButtons();
+
+            var postData = querystring.stringify({
+                selector: this.selectedFeedback,
+                feedbacktxt: text,
+                qitem_txt: this.poePrices.encodedItemText,
+                source: "xenontrade",
+                min: this.poePrices.price.min,
+                max: this.poePrices.price.max,
+                currency: this.poePrices.price.currency,
+                debug: 0
+            });
+
+            var options = {
+                hostname: "poeprices.info",
+                port: 443,
+                path: "/send_feedback",
+                method: "POST",
+                headers: {
+                    "Content-Type": "application/x-www-form-urlencoded",
+                    "Content-Length": postData.length
+                }
+            };
+
+            var infoText = this.getJQueryObject().find("[data-feedback-info]");
+            infoText.html("Sending feedback...");
+
+            var req = https.request(options, (res) => {
+                res.on("data", (d) => {
+                    infoText.html("Thank you for your feedback!");
+                });
+            });
+
+            req.on("error", (e) => {
+                infoText.html("An error occured while sending your feedback.");
+            });
+
+            req.write(postData);
+            req.end();
+        }
+    }
 }
 
 module.exports = RareItemEntry;
-// vim: ts=2 sw=2

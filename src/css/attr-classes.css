@@ -1,93 +1,93 @@
 [data-link], [data-button], [data-entry-link], [data-toggle] {
-  cursor: pointer !important;
+    cursor: pointer !important;
 }
 
 [data-entry-link] {
-  font-weight: 700;
-  font-size: 10px;
-  text-transform: uppercase;
+    font-weight: 700;
+    font-size: 10px;
+    text-transform: uppercase;
 }
 
 .row  {
-  display: table-row;
+    display: table-row;
 }
 
 .button {
-  display: inline-block;
-  margin: 0px 1px 0px 1px;
+    display: inline-block;
+    margin: 0px 1px 0px 1px;
 }
 .button i {
-  cursor: pointer !important;
+    cursor: pointer !important;
 }
 .button i:hover, .button i:active {
-  opacity: .5;
-  text-shadow: white 1px 1px;
+    opacity: .5;
+    text-shadow: white 1px 1px;
 }
 
 
 .left-margin {
-  margin-left: 5px;
+    margin-left: 5px;
 }
 
 .right-margin {
-  margin-right: 5px;
+    margin-right: 5px;
 }
 
 .top-padding-10 {
-  padding-top: 10px !important;
+    padding-top: 10px !important;
 }
 
 .no-wrap {
-  white-space: nowrap;
+    white-space: nowrap;
 }
 
 .center {
-  text-align: center;
+    text-align: center;
 }
 
 .draggable {
-  -webkit-app-region: drag;
+    -webkit-app-region: drag;
 }
 
 .small {
-  font-size: 10px !important;
+    font-size: 10px !important;
 }
 
 .white {
-  color: #e6eaf2 !important;
+    color: #e6eaf2 !important;
 }
 
 .grey {
-  color: #748199 !important;
+    color: #748199 !important;
 }
 
 .green {
-  color: #9ae055 !important;
+    color: #9ae055 !important;
 }
 
 .blue {
-  color: #70d1ff !important;
+    color: #70d1ff !important;
 }
 
 .yellow {
-  color: #e0cf55 !important;
+    color: #e0cf55 !important;
 }
 
 .red {
-  color: #d14f4f !important;
+    color: #d14f4f !important;
 }
 
 .green-bg {
-  background-color: #9ae055 !important;
-  color: #447018 !important;
+    background-color: #9ae055 !important;
+    color: #447018 !important;
 }
 
 .yellow-bg {
-  background-color: #e0cf55 !important;
-  color: #877915 !important;
+    background-color: #e0cf55 !important;
+    color: #877915 !important;
 }
 
 .red-bg {
-  background-color: #d14f4f !important;
-  color: #701313 !important;
+    background-color: #d14f4f !important;
+    color: #701313 !important;
 }

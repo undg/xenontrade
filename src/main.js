@@ -20,82 +20,82 @@ log.transports.console.format = '[{d}/{m}/{y} {h}:{i}:{s}] [{level}] {text}';
 
 // Create XenonTrade window
 function createWindow() {
-  windowManager.init({
-    'devMode': isDev ? true : false,
-    'appBase': "file://" + __dirname
-  });
+    windowManager.init({
+        'devMode': isDev ? true : false,
+        'appBase': "file://" + __dirname
+    });
 
-  var mainWindow = windowManager.open('main', 'XenonTrade', '/index.html', false, {
-    'x': config.get("window.x"),
-    'y': config.get("window.y"),
-    'width': 300 * config.get("window.zoomFactor"),
-    'height': 0,
-    'frame': false,
-    'backgroundThrottling': false,
-    'skipTaskbar': true,
-    'show': false,
-    'transparent': true,
-    'maximizable': false,
-    'resizable': isDev ? true : false,
-    'fullscreenable': false,
-    'alwaysOnTop': true
-  });
+    var mainWindow = windowManager.open('main', 'XenonTrade', '/index.html', false, {
+        'x': config.get("window.x"),
+        'y': config.get("window.y"),
+        'width': 300 * config.get("window.zoomFactor"),
+        'height': 0,
+        'frame': false,
+        'backgroundThrottling': false,
+        'skipTaskbar': true,
+        'show': false,
+        'transparent': true,
+        'maximizable': false,
+        'resizable': isDev ? true : false,
+        'fullscreenable': false,
+        'alwaysOnTop': true
+    });
 
-  win = mainWindow.object;
+    win = mainWindow.object;
 
-  // Open dev tools only when isDev is enabled
-  if(isDev) {
-    win.setContentSize(800, 600);
-    win.webContents.openDevTools();
-  }
+    // Open dev tools only when isDev is enabled
+    if(isDev) {
+        win.setContentSize(800, 600);
+        win.webContents.openDevTools();
+    }
 
-  // Emitted when the window is focused
-  win.on("focus", () => {
-    win.webContents.send('focus');
-  });
+    // Emitted when the window is focused
+    win.on("focus", () => {
+        win.webContents.send('focus');
+    });
 
-  // Emitted when the window is ready to be shown
-  win.on('ready-to-show', () => {
-    win.show();
-  });
+    // Emitted when the window is ready to be shown
+    win.on('ready-to-show', () => {
+        win.show();
+    });
 }
 
 // Create XenonTrade Tray
 function createTray() {
-  let iconPath = path.join(__dirname, '../', 'build/icon_512.png');
-  tray = new Tray(iconPath);
+    let iconPath = path.join(__dirname, '../', 'build/icon_512.png');
+    tray = new Tray(iconPath);
 
-  const contextMenu = Menu.buildFromTemplate([
-    {
-      label: 'Show', click: function() {
-        win.show();
-      }
-    },
-    {
-      label: 'Close', click: function() {
-        windowManager.closeAll();
-      }
-    }
-  ]);
+    const contextMenu = Menu.buildFromTemplate([
+        {
+            label: 'Show', click: function() {
+                win.show();
+            }
+        },
+        {
+            label: 'Close', click: function() {
+                windowManager.closeAll();
+            }
+        }
+    ]);
 
-  tray.setToolTip('XenonTrade');
-  tray.setContextMenu(contextMenu);
+    tray.setToolTip('XenonTrade');
+    tray.setContextMenu(contextMenu);
 }
 
 // Only allow one instance of XenonTrade
 let shouldQuit = app.makeSingleInstance(function(commandLine, workingDirectory) {
-  if(win) {
-    if(win.isMinimized()) {
-      win.restore();
-    }
+    if(win) {
+        if(win.isMinimized()) {
+            win.restore();
+        }
 
-    win.focus();
-  }
+        win.focus();
+    }
 });
 
 if(shouldQuit) {
-  app.quit();
-  return;
+    app.quit();
+    return;
 }
 if (isDev) {
     require('electron-reload')(__dirname);
@@ -105,52 +105,51 @@ if (isDev) {
 // initialization and is ready to create browser windows.
 // Some APIs can only be used after this event occurs.
 app.on("ready", () => {
-  createWindow();
-  createTray();
+    createWindow();
+    createTray();
 
-  // Check for updates if not in dev mode
-  if (!isDev) {
-    autoUpdater.checkForUpdates();
-  }
+    // Check for updates if not in dev mode
+    if (!isDev) {
+        autoUpdater.checkForUpdates();
+    }
 });
 
 // Quit when all windows are closed.
 app.on("window-all-closed", () => {
-  app.quit();
+    app.quit();
 });
 
 // On update available, let main window know
 autoUpdater.on('update-available', (info) => {
-  win.webContents.send('update-available', info);
+    win.webContents.send('update-available', info);
 });
 
 // On update downloaded, let main window know
 autoUpdater.on('update-downloaded', (info) => {
-  win.webContents.send('update-downloaded', info);
+    win.webContents.send('update-downloaded', info);
 });
 
 // Download update when receiving download-update
 ipcMain.on("download-update", (event, arg) => {
-  autoUpdater.downloadUpdate();
+    autoUpdater.downloadUpdate();
 });
 
 // When receiving install-update, quit and install the new version
 ipcMain.on("install-update", (event, arg) => {
-  autoUpdater.quitAndInstall();
+    autoUpdater.quitAndInstall();
 });
 
 // When receiving resize, resize the main window
 ipcMain.on("resize", function (ev, width, height) {
-  if(isDev) { return }
-  // Save previous window position
-  let windowPosition = win.getPosition();
+    if(isDev) { return }
+    // Save previous window position
+    let windowPosition = win.getPosition();
 
-  // Set new window size
-  win.setContentSize(Math.round(width), Math.round(height));
+    // Set new window size
+    win.setContentSize(Math.round(width), Math.round(height));
 
-  // Apply previous position again to fix up- and downwards resize on some Linux distros
-  if(os.platform() === "linux") {
-    win.setPosition(windowPosition[0], windowPosition[1]);
-  }
+    // Apply previous position again to fix up- and downwards resize on some Linux distros
+    if(os.platform() === "linux") {
+        win.setPosition(windowPosition[0], windowPosition[1]);
+    }
 });
-// vim: ts=2 sw=2
