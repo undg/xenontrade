@@ -12,7 +12,7 @@ const log = require("electron-log");
 
 const Config = require("electron-store");
 const Helpers = require("./modules/helpers.js");
-const PathOfExileLog = require("poe-log-monitor");
+const PathOfExileLog = require("@undg/poe-log-monitor");
 const NinjaAPI = require("./modules/poe-ninja");
 const Templates = require("./modules/templates.js");
 const Whisper = require("./modules/whisper.js");
