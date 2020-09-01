@@ -132,7 +132,7 @@ class GUI {
             PathOfExile.stashSearch(e.currentTarget.dataset.stashsearch)
         );
         $("[data-stashgrab]").click(() =>
-            PathOfExile.runShellCommand('./../../py/autofire/pick_highlighted.py')
+            PathOfExile.grabFromStash()
         );
     }
 

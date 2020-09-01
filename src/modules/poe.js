@@ -1,22 +1,23 @@
 const DefaultConfig = require("../resource/defaultConfig");
 const Config = require("electron-store");
-const dotProp = require('dot-prop');
+const dotProp = require("dot-prop");
 const cp = require("child-process-es6-promise");
 const os = require("os");
 const path = require("path");
 const request = require("request-promise-native");
 const ffi = require("ffi");
-const {shell, clipboard} = require("electron");
+const { shell, clipboard } = require("electron");
 const robot = require("robotjs");
+const child_process = require("child_process")
 
 class PathOfExile {
     /**
      * Focuses the Path of Exile window based on the OS
      */
     static focus() {
-        if(os.platform() === "linux") {
+        if (os.platform() === "linux") {
             PathOfExile._focusOnLinux();
-        } else if(os.platform() === "win32") {
+        } else if (os.platform() === "win32") {
             PathOfExile._focusOnWindows();
         }
     }
@@ -25,46 +26,57 @@ class PathOfExile {
      * Focuses the game on Linux
      */
     static _focusOnLinux() {
-        cp.exec("wmctrl -F -a 'Path of Exile'")
-            .catch((error) => {
-                console.error("Tried to focus Path of Exile but failed, either wmctrl is not installed or Path of Exile is not running");
-            });
+        cp.exec("wmctrl -F -a 'Path of Exile'").catch((error) => {
+            console.error(
+                "Tried to focus Path of Exile but failed, either wmctrl is not installed or Path of Exile is not running"
+            );
+        });
     }
 
     /**
      * Focuses the game on Windows
      */
     static _focusOnWindows() {
-        var user32 = new ffi.Library('user32', {
-            'GetTopWindow': ['long', ['long']],
-            'FindWindowA': ['long', ['string', 'string']],
-            'SetActiveWindow': ['long', ['long']],
-            'SetForegroundWindow': ['bool', ['long']],
-            'BringWindowToTop': ['bool', ['long']],
-            'ShowWindow': ['bool', ['long', 'int']],
-            'SwitchToThisWindow': ['void', ['long', 'bool']],
-            'GetForegroundWindow': ['long', []],
-            'AttachThreadInput': ['bool', ['int', 'long', 'bool']],
-            'GetWindowThreadProcessId': ['int', ['long', 'int']],
-            'SetWindowPos': ['bool', ['long', 'long', 'int', 'int', 'int', 'int', 'uint']],
-            'SetFocus': ['long', ['long']]
+        var user32 = new ffi.Library("user32", {
+            GetTopWindow: ["long", ["long"]],
+            FindWindowA: ["long", ["string", "string"]],
+            SetActiveWindow: ["long", ["long"]],
+            SetForegroundWindow: ["bool", ["long"]],
+            BringWindowToTop: ["bool", ["long"]],
+            ShowWindow: ["bool", ["long", "int"]],
+            SwitchToThisWindow: ["void", ["long", "bool"]],
+            GetForegroundWindow: ["long", []],
+            AttachThreadInput: ["bool", ["int", "long", "bool"]],
+            GetWindowThreadProcessId: ["int", ["long", "int"]],
+            SetWindowPos: [
+                "bool",
+                ["long", "long", "int", "int", "int", "int", "uint"],
+            ],
+            SetFocus: ["long", ["long"]],
         });
 
-        var kernel32 = new ffi.Library('Kernel32.dll', {
-            'GetCurrentThreadId': ['int', []]
+        var kernel32 = new ffi.Library("Kernel32.dll", {
+            GetCurrentThreadId: ["int", []],
         });
 
-        var winToSetOnTop = user32.FindWindowA(null, "Path of Exile")
-        var foregroundHWnd = user32.GetForegroundWindow()
-        var currentThreadId = kernel32.GetCurrentThreadId()
-        var windowThreadProcessId = user32.GetWindowThreadProcessId(foregroundHWnd, null)
-        var showWindow = user32.ShowWindow(winToSetOnTop, 9)
-        var setWindowPos1 = user32.SetWindowPos(winToSetOnTop, -1, 0, 0, 0, 0, 3)
-        var setWindowPos2 = user32.SetWindowPos(winToSetOnTop, -2, 0, 0, 0, 0, 3)
-        var setForegroundWindow = user32.SetForegroundWindow(winToSetOnTop)
-        var attachThreadInput = user32.AttachThreadInput(windowThreadProcessId, currentThreadId, 0)
-        var setFocus = user32.SetFocus(winToSetOnTop)
-        var setActiveWindow = user32.SetActiveWindow(winToSetOnTop)
+        var winToSetOnTop = user32.FindWindowA(null, "Path of Exile");
+        var foregroundHWnd = user32.GetForegroundWindow();
+        var currentThreadId = kernel32.GetCurrentThreadId();
+        var windowThreadProcessId = user32.GetWindowThreadProcessId(
+            foregroundHWnd,
+            null
+        );
+        var showWindow = user32.ShowWindow(winToSetOnTop, 9);
+        var setWindowPos1 = user32.SetWindowPos(winToSetOnTop, -1, 0, 0, 0, 0, 3);
+        var setWindowPos2 = user32.SetWindowPos(winToSetOnTop, -2, 0, 0, 0, 0, 3);
+        var setForegroundWindow = user32.SetForegroundWindow(winToSetOnTop);
+        var attachThreadInput = user32.AttachThreadInput(
+            windowThreadProcessId,
+            currentThreadId,
+            0
+        );
+        var setFocus = user32.SetFocus(winToSetOnTop);
+        var setActiveWindow = user32.SetActiveWindow(winToSetOnTop);
     }
 
     /**
@@ -75,21 +87,26 @@ class PathOfExile {
      * @reject {Error} - The `error.message` contains information about why the promise was rejected
      */
     static getLeagues() {
-        return new Promise(function(resolve, reject) {
-            request("http://api.pathofexile.com/leagues?type=main", {json: true, headers: {'Connection': 'keep-alive'}})
+        return new Promise(function (resolve, reject) {
+            request("http://api.pathofexile.com/leagues?type=main", {
+                json: true,
+                headers: { Connection: "keep-alive" },
+            })
                 .then((body) => {
                     var leagues = [];
                     var leaguesCount = 0;
                     // Iterate through each league
-                    for(var i = 0; i < body.length; i++) {
+                    for (var i = 0; i < body.length; i++) {
                         var league = body[i];
                         var ssf = false;
                         leaguesCount++;
 
-                        if(!PathOfExile._isSoloLeague(league)) { leagues.push(league.id); }
+                        if (!PathOfExile._isSoloLeague(league)) {
+                            leagues.push(league.id);
+                        }
 
                         // When done with every league
-                        if(leaguesCount === body.length) {
+                        if (leaguesCount === body.length) {
                             resolve(leagues);
                         }
                     }
@@ -99,7 +116,6 @@ class PathOfExile {
                 });
         });
     }
-
 
     /**
      * Focuses Path of Exile and send keys
@@ -115,24 +131,27 @@ class PathOfExile {
         clipboard.writeText(message);
 
         var intervalCount = 0;
-        var interval = setInterval( () => {
+        var interval = setInterval(() => {
             // Send chat message if PoE is focused
-            if(app.poeFocused && clipboard.readText() === message) {
+            if (app.poeFocused && clipboard.readText() === message) {
                 clearInterval(interval);
                 robot.setKeyboardDelay(50);
-                macroCallback()
+                macroCallback();
 
-                if(send) {
+                if (send) {
                     robot.keyToggle("enter", "down");
                     robot.keyToggle("enter", "up");
                 }
 
                 // Restore clipboard content
-                let timeout = setTimeout(() => clipboard.writeText(previousClipboard) , 100);
+                let timeout = setTimeout(
+                    () => clipboard.writeText(previousClipboard),
+                    100
+                );
             }
 
             // Clear interval if focusing Path of Exile is taking too long
-            if(intervalCount >= 500) {
+            if (intervalCount >= 500) {
                 clearInterval(interval);
                 clipboard.writeText(previousClipboard);
             }
@@ -148,56 +167,57 @@ class PathOfExile {
      * @param {boolean} [send=true] Whether the message should be sent automatically
      */
     static chat(message, send = true) {
-        PathOfExile.sendMakro(message, () => {
-            robot.keyToggle("enter", "up");
-            robot.keyToggle("enter", "down");
-            robot.keyToggle("enter", "up");
-            robot.keyToggle("control", "down");
-            robot.keyToggle("a", "down");
-            robot.keyToggle("a", "up");
-            robot.keyToggle("v", "down");
-            robot.keyToggle("v", "up");
-            robot.keyToggle("control", "up");
-        }, send)
+        PathOfExile.sendMakro(
+            message,
+            () => {
+                robot.keyToggle("enter", "up");
+                robot.keyToggle("enter", "down");
+                robot.keyToggle("enter", "up");
+                robot.keyToggle("control", "down");
+                robot.keyToggle("a", "down");
+                robot.keyToggle("a", "up");
+                robot.keyToggle("v", "down");
+                robot.keyToggle("v", "up");
+                robot.keyToggle("control", "up");
+            },
+            send
+        );
     }
 
     /**
-     * Focuses Path of Exile and input string in search box 
+     * Focuses Path of Exile and input string in search box
      *
      * @param {string} item to search in inventory
      * @param {boolean} [send=true] Whether the search should be sent automatically
      */
     static stashSearch(itemName, send = true) {
-        PathOfExile.sendMakro(itemName, () => {
-            robot.keyToggle("control", "down");
-            robot.keyToggle("f", "down");
-            robot.keyToggle("f", "up");
-            robot.keyToggle("v", "down");
-            robot.keyToggle("v", "up");
-            robot.keyToggle("control", "up");
-        }, send)
+        PathOfExile.sendMakro(
+            itemName,
+            () => {
+                robot.keyToggle("control", "down");
+                robot.keyToggle("f", "down");
+                robot.keyToggle("f", "up");
+                robot.keyToggle("v", "down");
+                robot.keyToggle("v", "up");
+                robot.keyToggle("control", "up");
+            },
+            send
+        );
     }
 
-
     /**
-     * Run any external shell command 
+     * Run any external shell command
      *
      * @param {string} script name, with path if is not in system path
      */
-    static runShellCommand(scriptName) {
+    static grabFromStash() {
+        const pyPath = path.join(process.resourcesPath, '/py/autofire/')
+        const pyScript = 'pick_highlighted.py'
+        const command = 'cd '+ pyPath + ';python '+ pyScript
+        const error = err => {!!err && alert(err)}
 
-        var exec = require('child_process').exec;
-        exec('poe_hlpick.sh', {
-        }, function(err, stdout, stderr) {
-            if  (err)  {
-                console.error('results', stderr);
-                throw err;
-            }
-            console.log(`${scriptName} finished.`);
-            console.log('results', stdout);
-        });
+        child_process.exec(command, error)
     }
-
 
     /**
      * Returns `true` if the league rules have a solo rules
@@ -205,9 +225,9 @@ class PathOfExile {
      * @return {boolean}
      */
     static _isSoloLeague(league) {
-        if(league.rules.length > 0) {
-            for(var j = 0; j < league.rules.length; j++) {
-                if(league.rules[j].name === "Solo") {
+        if (league.rules.length > 0) {
+            for (var j = 0; j < league.rules.length; j++) {
+                if (league.rules[j].name === "Solo") {
                     return true;
                 }
             }

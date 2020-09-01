@@ -21,7 +21,8 @@ log.transports.console.format = '[{d}/{m}/{y} {h}:{i}:{s}] [{level}] {text}';
 // Create XenonTrade window
 function createWindow() {
     windowManager.init({
-        'devMode': isDev ? true : false,
+        // 'devMode': isDev ? true : false,
+        'devMode': true,
         'appBase': "file://" + __dirname
     });
 
