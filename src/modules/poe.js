@@ -110,23 +110,24 @@ class PathOfExile {
     static sendMakro(message, macroCallback, send = true) {
         PathOfExile.focus();
 
-        var previousClipboard = clipboard.readText();
+        const previousClipboard = clipboard.readText();
         clipboard.writeText(message);
 
-        var intervalCount = 0;
-        var interval = setInterval(() => {
+        let intervalCount = 0;
+        const interval = setInterval(() => {
             // Send chat message if PoE is focused
             if (app.poeFocused && clipboard.readText() === message) {
                 clearInterval(interval);
-                robot.setKeyboardDelay(35);
+                robot.setKeyboardDelay(25);
                 macroCallback();
 
                 if (send) {
-                    robot.tap("enter")
+                    robot.keyToggle("enter", "down")
+                    robot.keyToggle("enter", "up")
                 }
 
                 // Restore clipboard content
-                setTimeout(() => clipboard.writeText(previousClipboard), 50);
+                setTimeout(() => clipboard.writeText(previousClipboard), 45);
             }
 
             // Clear interval if focusing Path of Exile is taking too long
@@ -149,10 +150,14 @@ class PathOfExile {
         PathOfExile.sendMakro(
             message,
             () => {
-                robot.tap("enter")
+                robot.keyToggle("enter", "up")
+                robot.keyToggle("enter", "down")
+                robot.keyToggle("enter", "up")
                 robot.keyToggle("control", "down")
-                robot.tap("a")
-                robot.tap("v")
+                robot.keyToggle("a", "down")
+                robot.keyToggle("a", "up")
+                robot.keyToggle("v", "down")
+                robot.keyToggle("v", "up")
                 robot.keyToggle("control", "up")
             },
             send
@@ -170,8 +175,10 @@ class PathOfExile {
             itemName,
             () => {
                 robot.keyToggle("control", "down");
-                robot.tap("f");
-                robot.tap("v");
+                robot.keyToggle("f", "down")
+                robot.keyToggle("f", "up")
+                robot.keyToggle("v", "down")
+                robot.keyToggle("v", "up")
                 robot.keyToggle("control", "up");
             },
             send
