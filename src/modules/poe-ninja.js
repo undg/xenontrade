@@ -27,7 +27,6 @@ class NinjaAPI {
         this.apis = [
             { overview: "currency", type: "Currency" },
             { overview: "currency", type: "Fragment" },
-            { overview: "item", type: "Seed" },
             { overview: "item", type: "DeliriumOrb" },
             { overview: "item", type: "Watchstone" },
             { overview: "item", type: "Oil" },
