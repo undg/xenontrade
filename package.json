@@ -1,5 +1,5 @@
 {
-    "name": "xenonTrade",
+    "name": "xenontrade",
     "author": "------",
     "version": "1.2.2",
     "description": "Path of Exile trading app for price checking and trade whisper management",
@@ -11,6 +11,7 @@
         "dev": "ELECTRON_IS_DEV=1 electron ./",
         "electron": "electron ./",
         "build": "build",
+        "build:win": "build --win",
         "dist-linux": "build",
         "dist-win": "build --win",
         "publish-linux": "build --linux --publish always",
