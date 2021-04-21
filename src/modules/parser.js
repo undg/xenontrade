@@ -42,7 +42,7 @@ class Parser {
      * @returns {boolean}
      */
     isPathOfExileData() {
-        if (this.clipboard.startsWith("Rarity: ")) {
+        if (this.clipboard.startsWith("Item Class: ")) {
             return true;
         }
 
@@ -108,7 +108,7 @@ class Parser {
                 );
 
                 if (match) {
-                    var value = match[1];
+                    var value = match[2];
                     variant = itemVariants[name].regex.matches[value];
                 }
             } else if (itemVariants[name].hasOwnProperty("mods")) {
@@ -235,11 +235,11 @@ class Parser {
     getName() {
         var type = this.getItemType();
         var rarity = this.getRarity();
-        var index = 1;
+        var index = 2;
 
         // If it's a map, the base type should be the name
         if (type === "Map" && rarity === "Rare") {
-            index = 2;
+            index = 3;
         }
 
         var lines = this.getClipboardLines();
@@ -249,7 +249,7 @@ class Parser {
         if (type === "Map") {
             name = this._removeMapAffixesFromName(name);
         }
-
+     
         if (
             type === "SkillGem" &&
             this.clipboard.includes("Souls Per Use") &&
@@ -288,7 +288,7 @@ class Parser {
      */
     getBaseType() {
         var lines = this.getClipboardLines();
-        var baseType = lines[2].replace(/[^0-9a-zA-ZäÄöÖüÜß\-, ']/gi, ""); // Replace newline garbage
+        var baseType = lines[3].replace(/[^0-9a-zA-ZäÄöÖüÜß\-, ']/gi, ""); // Replace newline garbage
 
         // If the base type doesn't have letters return null because that's not a base type
         if (!/[a-z]/i.test(baseType)) {
