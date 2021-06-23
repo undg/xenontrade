@@ -11,7 +11,6 @@ jobs:
     runs-on: ubuntu-latest
     steps:
       - name: Create Release
-        id: create_release
         - uses: zendesk/action-create-release@v1
         - uses: actions/setup-node@v1
         - uses: actions/checkout@v2
