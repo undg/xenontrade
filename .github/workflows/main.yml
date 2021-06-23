@@ -1,0 +1,4 @@
+# This is a basic workflow to help you get started with Actions
+
+- name: Automatic Releases
+  uses: marvinpinto/action-automatic-releases@v1.2.1
