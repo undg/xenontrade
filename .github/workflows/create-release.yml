@@ -15,8 +15,11 @@ jobs:
       - uses: zendesk/action-create-release@v1
       - uses: actions/setup-node@v1
       - uses: actions/checkout@v2
-      - run: npm run init
-      - run: npm run build
-      - run: npm run build:win
-        env:
-          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+      - name: init
+        run: npm run init
+      - name: build
+        run: npm run build
+      - name: build:win
+        run: npm run build:win
+      env:
+        GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
