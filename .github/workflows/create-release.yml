@@ -1,0 +1,22 @@
+on:
+  push:
+    branches:
+      - master
+
+name: Create Release
+
+jobs:
+  build:
+    name: Create Release
+    runs-on: ubuntu-latest
+    steps:
+      - name: Create Release
+        id: create_release
+        - uses: zendesk/action-create-release@v1
+        - uses: actions/setup-node@v1
+        - uses: actions/checkout@v2
+        - run: npm run init
+        - run: npm run build
+        - run: npm run build:win
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
