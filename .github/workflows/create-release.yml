@@ -10,17 +10,13 @@ jobs:
     name: Create Release
     runs-on: ubuntu-latest
     steps:
-      - name: Create Release
-        id: create_release
       - uses: zendesk/action-create-release@v1
       - uses: actions/setup-node@v1
-      - uses: actions/checkout@v2
-      - name: init
-        run: npm run init
-      - name: build
-        run: npm run build
-      - name: build:win
-        run: npm run build:win
-      - name: env
+      - uses: actions/checkout@v2      
+      - name: Create Release
+        run: |
+          npm run init
+          npm run build
+          npm run build:win
         env:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
