@@ -21,5 +21,6 @@ jobs:
         run: npm run build
       - name: build:win
         run: npm run build:win
+      - name: env
         env:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
